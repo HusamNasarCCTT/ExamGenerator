@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/courseNameDialog">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/courseNameDialog"
+        android:gravity="center_horizontal"
+        android:layout_gravity="fill_horizontal"
+        android:hint="Course Name" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Year"
+        android:layout_gravity="fill_horizontal"
+        android:id="@+id/courseYearDialog"
+        android:gravity="center_horizontal" />
+</LinearLayout>

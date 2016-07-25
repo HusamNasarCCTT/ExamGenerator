@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/questionIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/question_icon"/>
+
+    <TextView
+        android:id="@+id/customQuestionText"
+        android:text="Any text here"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/questionIcon"
+        android:layout_alignTop="@id/questionIcon"
+        android:layout_alignBottom="@id/questionIcon"
+        />
+    <!--<TextView
+        android:id="@+id/customMcqOrTheory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Any text here"
+        android:layout_alignBottom="@+id/questionIcon"
+        android:layout_toEndOf="@+id/questionIcon" />
+    <TextView
+        android:id="@+id/customPracOrTheory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Any text here"
+        android:layout_alignBottom="@+id/questionIcon"
+        android:layout_alignParentRight="true"/>-->
+</RelativeLayout>

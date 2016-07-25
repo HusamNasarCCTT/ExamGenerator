@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cctt.grad.examgenerator.CourseManagement"
+    android:id="@+id/course_management"
+    android:gravity="center_horizontal">
+
+    <ListView
+        android:id="@+id/courseList"
+        android:layout_weight="20"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_gravity="fill_vertical"/>
+    <Button
+        android:id="@+id/addCourses"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Course"
+        android:background="?android:attr/selectableItemBackground"/>
+</LinearLayout>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <RelativeLayout
+        android:id="@+id/updateQuestionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".QuestionAdder">
+
+        <EditText
+            android:id="@+id/questionTextEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Question text"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"/>
+
+        <RadioGroup
+            android:id="@+id/mcq_or_essayEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/questionTextEdit">
+            <RadioButton
+                android:id="@+id/mcqEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MCQ" />
+            <RadioButton
+                android:id="@+id/essayEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Essay"/>
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/practical_or_theoryEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:layout_alignBaseline="@id/mcq_or_essayEdit"
+            android:layout_alignTop="@id/mcq_or_essayEdit"
+            android:layout_centerHorizontal="true">
+            <RadioButton
+                android:id="@+id/practicalEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Practical" />
+            <RadioButton
+                android:id="@+id/theoryEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Theory"/>
+        </RadioGroup>
+        <EditText
+            android:id="@+id/choice1Edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Choice 1"
+            android:layout_below="@id/mcq_or_essayEdit"/>
+        <EditText
+            android:id="@+id/choice2Edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Choice 2"
+            android:layout_below="@id/choice1Edit"/>
+        <EditText
+            android:id="@+id/choice3Edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Choice 3"
+            android:layout_below="@id/choice2Edit"/>
+        <EditText
+            android:id="@+id/choice4Edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Choice 4"
+            android:layout_below="@id/choice3Edit"/>
+        <TextView
+            android:id="@+id/difficultyTextEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:text="Difficulty"
+            android:layout_below="@id/choice4Edit"/>
+        <Spinner
+            android:id="@+id/difficultyEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/difficultyTextEdit"
+            />
+        <Button
+            android:id="@+id/addQuestionEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Question"
+            android:layout_below="@id/difficultyEdit"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,136 @@
+package cctt.grad.examgenerator;
+
+import android.content.Intent;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.util.Iterator;
+import java.util.Vector;
+
+public class DisplayQuestion extends AppCompatActivity {
+
+
+    private TextView displayQuestionText, displayQuestionType1, displayQuestionType2,
+                     displayQuestionDifficulty, displayQuestionTime, displayChoices,
+                     displayChoice1, displayChoice2, displayChoice3, displayChoice4 = null;
+
+    private ExamDBHandler examDBHandler = null;
+    private int courseId;
+    private Intent intent = null;
+    private Bundle questionBundle = null;
+    private String courseName, activityName = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.display_question);
+
+        //To display Back/Home button on Actionbar...
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Getting Intent Data (Bundle) to display question...
+        intent = getIntent();
+        courseId = intent.getIntExtra("Course ID", -1);
+        courseName = intent.getStringExtra("Course Name");
+        activityName = intent.getStringExtra("Activity Name");
+        if(activityName.equals("QuestionManagement"))
+            getSupportActionBar().setTitle(courseName);
+        if(activityName.equals("DisplayExam"))
+            setTitle(courseName + " Exam");
+        Bundle questionBundle = intent.getBundleExtra("Question Bundle");
+
+        //Initializing DB Handler...
+        examDBHandler = new ExamDBHandler(this, null, null, 1);
+
+        //Initializing Widgets...
+        displayQuestionText = (TextView) findViewById(R.id.displayQuestionText);
+        displayQuestionType1 = (TextView) findViewById(R.id.displayQuestionType1);
+        displayQuestionType2 = (TextView) findViewById(R.id.displayQuestionType2);
+        displayQuestionDifficulty = (TextView) findViewById(R.id.displayQuestionDifficulty);
+        displayQuestionTime = (TextView) findViewById(R.id.displayQuestionTime);
+        displayChoices = (TextView) findViewById(R.id.displayChoices);
+        displayChoice1 = (TextView) findViewById(R.id.displayChoice1);
+        displayChoice2 = (TextView) findViewById(R.id.displayChoice2);
+        displayChoice3 = (TextView) findViewById(R.id.displayChoice3);
+        displayChoice4 = (TextView) findViewById(R.id.displayChoice4);
+
+        displayChoices.setVisibility(View.INVISIBLE);
+        displayChoice1.setVisibility(View.INVISIBLE);
+        displayChoice2.setVisibility(View.INVISIBLE);
+        displayChoice3.setVisibility(View.INVISIBLE);
+        displayChoice4.setVisibility(View.INVISIBLE);
+
+        //Acquiring question data from bundle...
+        int questionId = questionBundle.getInt("Question Id");
+        String questionText = questionBundle.getString("Question Text");
+        String questionType1;
+        String questionType2;
+        String questionDifficulty = String.valueOf(questionBundle.getInt("Difficulty"));
+        String questionTime = String.valueOf(questionBundle.getFloat("Time"));
+
+
+        if(questionBundle.getInt("Mcq or Essay") == 0){
+            questionType1 = "Mcq";
+            displayChoices.setVisibility(View.VISIBLE);
+            Vector<Bundle> choices = examDBHandler.getChoicesByQuestionId(questionId);
+            Vector<TextView> displayChoiceObjects = new Vector<TextView>();
+            displayChoiceObjects.add(displayChoice1);
+            displayChoiceObjects.add(displayChoice2);
+            displayChoiceObjects.add(displayChoice3);
+            displayChoiceObjects.add(displayChoice4);
+            Iterator<Bundle> iterator = choices.iterator();
+            int i = 0;
+            while(iterator.hasNext()){
+                String choiceText = iterator.next().getString("Choice Text");
+                displayChoiceObjects.elementAt(i).setText(String.valueOf(i+1) + "- " + choiceText);
+                displayChoiceObjects.elementAt(i).setVisibility(View.VISIBLE);
+                i++;
+            }
+        }else{
+            questionType1 = "Essay";
+        }
+
+        if(questionBundle.getInt("Practical or Theory") == 0){
+            questionType2 = "Practical";
+        }else{
+            questionType2 = "Theory";
+        }
+
+        displayQuestionText.setText(displayQuestionText.getText() + questionText);
+        displayQuestionType1.setText(displayQuestionType1.getText() + questionType1);
+        displayQuestionType2.setText(displayQuestionType2.getText() + questionType2);
+        displayQuestionDifficulty.setText(displayQuestionDifficulty.getText() + questionDifficulty + "/10");
+        displayQuestionTime.setText(displayQuestionTime.getText() + questionTime + " mins");
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case android.R.id.home:
+                Intent backIntent;
+                if(activityName.equals("QuestionManagement")){
+                    backIntent = new Intent(this, QuestionManagement.class);
+                    Bundle backBundle = new Bundle();
+                    backBundle.putInt("Course ID", courseId);
+                    backIntent.putExtras(backBundle);
+                    startActivity(backIntent);
+                    finish();
+                }
+                if(activityName.equals("DisplayExam")){
+
+                }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+}

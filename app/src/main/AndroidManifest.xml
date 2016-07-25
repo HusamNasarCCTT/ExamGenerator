@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cctt.grad.examgenerator">
+
+    <!-- >In order to write PDF File to SD Card< -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Design">
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".TeacherManagement"
+            android:label="@string/title_activity_teacher_management"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.Design.Light">
+
+            <!--
+                <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cctt.grad.examgenerator.MainActivity" />
+            -->
+        </activity>
+        <activity
+            android:name=".CourseManagement"
+            android:label="Course List" />
+        <activity android:name=".QuestionAdder" />
+        <activity android:name=".CourseAdder" />
+        <activity android:name=".QuestionManagement" />
+        <activity
+            android:name=".DisplayQuestion"
+            android:parentActivityName=".QuestionManagement">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".QuestionManagement"/>
+        </activity>
+        <activity android:name=".ExamGenerator" />
+        <activity android:name=".DisplayExam" />
+        <activity
+            android:name=".CourseEditor"
+            android:label="Course Editor"
+            android:parentActivityName=".CourseManagement">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cctt.grad.examgenerator.CourseManagement" />
+        </activity>
+        <activity android:name=".UpdateUser" />
+        <activity android:name=".UpdateQuestion" />
+        <activity android:name=".ViewExamDetails"
+                  android:parentActivityName=".DisplayExam">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cctt.grad.examgenerator.DisplayExam" />
+        </activity>
+    </application>
+
+</manifest>

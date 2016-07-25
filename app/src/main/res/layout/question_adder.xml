@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <RelativeLayout
+        android:id="@+id/courseAdderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".QuestionAdder">
+
+        <EditText
+            android:id="@+id/questionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Question text"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"/>
+
+        <RadioGroup
+            android:id="@+id/mcq_or_essay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/questionText">
+            <RadioButton
+                android:id="@+id/mcq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MCQ" />
+            <RadioButton
+                android:id="@+id/essay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Essay"/>
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/practical_or_theory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:layout_alignBaseline="@id/mcq_or_essay"
+            android:layout_alignTop="@id/mcq_or_essay"
+            android:layout_centerHorizontal="true">
+            <RadioButton
+                android:id="@+id/practical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Practical" />
+            <RadioButton
+                android:id="@+id/theoryGen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Theory"/>
+        </RadioGroup>
+        <EditText
+            android:id="@+id/choice1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Choice 1"
+            android:layout_below="@id/mcq_or_essay"/>
+        <EditText
+            android:id="@+id/choice2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Choice 2"
+            android:layout_below="@id/choice1"/>
+        <EditText
+            android:id="@+id/choice3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Choice 3"
+            android:layout_below="@id/choice2"/>
+        <EditText
+            android:id="@+id/choice4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Choice 4"
+            android:layout_below="@id/choice3"/>
+        <TextView
+            android:id="@+id/difficultyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:text="Difficulty"
+            android:layout_below="@id/choice4"/>
+        <Spinner
+            android:id="@+id/difficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/difficultyText"
+            />
+        <Button
+            android:id="@+id/addQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Question"
+            android:layout_below="@id/difficulty"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+</ScrollView>

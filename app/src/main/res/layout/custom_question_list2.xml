@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="@dimen/activity_horizontal_margin">
+
+    <ImageView
+        android:id="@+id/questionIcon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/question_icon__"/>
+
+    <TextView
+        android:id="@+id/customQuestionText2"
+        android:text="Any text here"
+        android:gravity="top"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/questionIcon2"
+        android:layout_alignTop="@id/questionIcon2"
+        />
+    <TextView
+        android:id="@+id/customMcqOrEssay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Any text here"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/questionIcon2"
+        android:layout_alignBottom="@id/questionIcon2"/>
+    <TextView
+        android:id="@+id/customPracOrTheory2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Any text here"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_alignBottom="@id/questionIcon2"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>
