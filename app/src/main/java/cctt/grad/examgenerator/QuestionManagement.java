@@ -31,6 +31,10 @@ public class QuestionManagement extends AppCompatActivity {
     private Bundle courseIntentData = null;
     private int courseId;
 
+    private static final int MCQ = 0;
+    private static final int ESSAY = 1;
+    private static final int BOTH = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +65,7 @@ public class QuestionManagement extends AppCompatActivity {
         final String courseName = courseIntentData.getString("Course Name");
         setTitle(courseName);
 
-        questionList.setAdapter(getQuestionListAdapter(courseId));
+        questionList.setAdapter(getQuestionListAdapter(courseId, BOTH));
 
         addQuestions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,14 +114,14 @@ public class QuestionManagement extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        questionList.setAdapter(getQuestionListAdapter(courseId));
+        questionList.setAdapter(getQuestionListAdapter(courseId, BOTH));
         super.onStart();
     }
 
 
-    public ListAdapter getQuestionListAdapter(int courseId){
+    public ListAdapter getQuestionListAdapter(int courseId, int mcqEssayOrBoth){
 
-        Vector<Bundle> questionList = examDBHandler.readQuestion(courseId);
+        Vector<Bundle> questionList = examDBHandler.readQuestion(courseId, mcqEssayOrBoth);
 
         ListAdapter listAdapter = new CustomQuestionAdapter2(this, questionList);
 
@@ -158,7 +162,7 @@ public class QuestionManagement extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 examDBHandler.removeQuestion(questionId);
-                                questionList.setAdapter(getQuestionListAdapter(courseId));
+                                questionList.setAdapter(getQuestionListAdapter(courseId, BOTH));
                                 Toast.makeText(QuestionManagement.this, "Question removed successfully", Toast.LENGTH_SHORT).show();
                             }
                         }).show();
@@ -186,6 +190,19 @@ public class QuestionManagement extends AppCompatActivity {
                 startActivity(backIntent);
                 finish();
                 return true;
+
+            case R.id.context_view_all:
+                questionList.setAdapter(getQuestionListAdapter(courseId, BOTH));
+                return true;
+
+            case R.id.context_view_mcqs:
+                questionList.setAdapter(getQuestionListAdapter(courseId, MCQ));
+                return true;
+
+            case R.id.context_view_essays:
+                questionList.setAdapter(getQuestionListAdapter(courseId, ESSAY));
+                return true;
+
             case R.id.context_delete_all:
                 //Making sure there is actual data to be deleted...
                 Bundle bundle = (Bundle) questionList.getItemAtPosition(0);
@@ -204,7 +221,7 @@ public class QuestionManagement extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     examDBHandler.deleteCourseQuestions(courseId);
-                                    questionList.setAdapter(getQuestionListAdapter(courseId));
+                                    questionList.setAdapter(getQuestionListAdapter(courseId, BOTH));
                                     Toast.makeText(QuestionManagement.this, "Questions deleted successfully", Toast.LENGTH_SHORT).show();
                                 }
                             }).show();

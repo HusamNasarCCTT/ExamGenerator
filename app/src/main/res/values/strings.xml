@@ -35,4 +35,5 @@
     </array>
     <string name="title_activity_login_activityy">Sign in</string>
     <string name="title_activity_course_editor">CourseEditor</string>
+    <string name="title_activity_view_course_details">ViewCourseDetails</string>
 </resources>

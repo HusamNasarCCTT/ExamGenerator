@@ -1,5 +1,7 @@
 package cctt.grad.examgenerator;
 
+import android.support.annotation.Nullable;
+
 import java.util.Vector;
 
 /**
@@ -127,5 +129,76 @@ public class Exam {
 
     public void set_questionList(Vector<Question> _questionList) {
         this._questionList = _questionList;
+    }
+
+
+    public Vector<Question> getMCQs(){
+
+        Vector<Question> mcqList = new Vector<>();
+
+        switch (this.get_mcqOrEssay()){
+
+            case 0:
+                return this.get_questionList();
+
+            case 2:
+                for (Question question : this.get_questionList()){
+
+                    if(question.get_mcqOrRegular() == 0)
+                        mcqList.add(question);
+
+                }
+                return mcqList;
+
+            default: return mcqList;
+        }
+
+    }
+
+    public Vector<Question> getEssays(){
+
+        Vector<Question> essayList = new Vector<>();
+
+        switch (this.get_mcqOrEssay()){
+
+            case 1:
+                return this._questionList;
+            case 2:
+                for (Question question : this.get_questionList()){
+
+                    if(question.get_mcqOrRegular() == 1)
+                        essayList.add(question);
+
+                }
+                return essayList;
+
+            default: return essayList;
+        }
+
+    }
+
+    public int getTheoryCount(){
+
+        int numOfTheories = 0;
+        for (Question question : this._questionList){
+
+            if(question.get_pracOrTheory() == 0){
+                numOfTheories++;
+            }
+
+        }
+        return numOfTheories;
+    }
+
+    public int getPracticalCount(){
+
+        int numOfPracticals = 0;
+        for (Question question : this._questionList){
+
+            if(question.get_pracOrTheory() == 1){
+                numOfPracticals++;
+            }
+        }
+        return numOfPracticals;
     }
 }

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/context_view_all"
+        android:title="View All"/>
+
+    <item
+        android:id="@+id/context_view_mcqs"
+        android:title="View MCQs"/>
+
+    <item
+        android:id="@+id/context_view_essays"
+        android:title="View Essays"/>
     <item
         android:id="@+id/context_delete_all"
         android:title="Delete All Questions"/>

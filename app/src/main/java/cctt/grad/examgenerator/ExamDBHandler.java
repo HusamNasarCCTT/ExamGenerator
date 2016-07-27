@@ -609,7 +609,7 @@ public class ExamDBHandler extends SQLiteOpenHelper {
         return courseVector;
     }
 
-    public Vector<Bundle> readQuestion(int courseId){
+    public Vector<Bundle> readQuestion(int courseId, final int mcqOrEssay){
 
         final Vector<Bundle> questionVector = new Vector<Bundle>();
         final int courseID = courseId;
@@ -618,7 +618,13 @@ public class ExamDBHandler extends SQLiteOpenHelper {
             public void run() {
                 SQLiteDatabase db = getWritableDatabase();
                 String query = "SELECT * FROM " + TABLE_QUESTION + " WHERE (" + COLUMN_QUESTION_COURSE + " = " + courseID + ");";
-                Cursor cursor = db.rawQuery(query, null);
+                String mcqQuery = "SELECT * FROM " + TABLE_QUESTION + " WHERE (" + COLUMN_QUESTION_COURSE + " = " + courseID + " AND "
+                                                                                + COLUMN_QUESTION_MCQ_OR_REGULAR + " = " + mcqOrEssay +  ");";
+                Cursor cursor;
+                if(mcqOrEssay == 0 || mcqOrEssay == 1)
+                    cursor = db.rawQuery(mcqQuery, null);
+                else
+                    cursor = db.rawQuery(query, null);
                 cursor.moveToFirst();
                 if(! cursor.isBeforeFirst() || ! cursor.isAfterLast()){
 
@@ -1075,6 +1081,7 @@ public class ExamDBHandler extends SQLiteOpenHelper {
         }
         return _exam;
     }
+
     public float getQuestionTimeByType(int mcq, int practical, int difficulty){
         float time = MIN_PER_DIFFPOINTS * difficulty;
         //MCQ = 0, Essay = 1.

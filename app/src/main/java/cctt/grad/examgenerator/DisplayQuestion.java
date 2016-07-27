@@ -1,15 +1,12 @@
 package cctt.grad.examgenerator;
 
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.Iterator;
 import java.util.Vector;
@@ -18,7 +15,7 @@ public class DisplayQuestion extends AppCompatActivity {
 
 
     private TextView displayQuestionText, displayQuestionType1, displayQuestionType2,
-                     displayQuestionDifficulty, displayQuestionTime, displayChoices,
+                     displayQuestionDifficulty, displayQuestionTime,
                      displayChoice1, displayChoice2, displayChoice3, displayChoice4 = null;
 
     private ExamDBHandler examDBHandler = null;
@@ -26,6 +23,7 @@ public class DisplayQuestion extends AppCompatActivity {
     private Intent intent = null;
     private Bundle questionBundle = null;
     private String courseName, activityName = null;
+    private CardView choiceContainer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +53,11 @@ public class DisplayQuestion extends AppCompatActivity {
         displayQuestionType2 = (TextView) findViewById(R.id.displayQuestionType2);
         displayQuestionDifficulty = (TextView) findViewById(R.id.displayQuestionDifficulty);
         displayQuestionTime = (TextView) findViewById(R.id.displayQuestionTime);
-        displayChoices = (TextView) findViewById(R.id.displayChoices);
         displayChoice1 = (TextView) findViewById(R.id.displayChoice1);
         displayChoice2 = (TextView) findViewById(R.id.displayChoice2);
         displayChoice3 = (TextView) findViewById(R.id.displayChoice3);
         displayChoice4 = (TextView) findViewById(R.id.displayChoice4);
 
-        displayChoices.setVisibility(View.INVISIBLE);
         displayChoice1.setVisibility(View.INVISIBLE);
         displayChoice2.setVisibility(View.INVISIBLE);
         displayChoice3.setVisibility(View.INVISIBLE);
@@ -78,7 +74,6 @@ public class DisplayQuestion extends AppCompatActivity {
 
         if(questionBundle.getInt("Mcq or Essay") == 0){
             questionType1 = "Mcq";
-            displayChoices.setVisibility(View.VISIBLE);
             Vector<Bundle> choices = examDBHandler.getChoicesByQuestionId(questionId);
             Vector<TextView> displayChoiceObjects = new Vector<TextView>();
             displayChoiceObjects.add(displayChoice1);
@@ -89,8 +84,10 @@ public class DisplayQuestion extends AppCompatActivity {
             int i = 0;
             while(iterator.hasNext()){
                 String choiceText = iterator.next().getString("Choice Text");
-                displayChoiceObjects.elementAt(i).setText(String.valueOf(i+1) + "- " + choiceText);
+                displayChoiceObjects.elementAt(i).setText("* " + choiceText + ".");
                 displayChoiceObjects.elementAt(i).setVisibility(View.VISIBLE);
+                choiceContainer = (CardView) findViewById(R.id.choiceContainer);
+                choiceContainer.setVisibility(View.VISIBLE);
                 i++;
             }
         }else{
@@ -103,11 +100,11 @@ public class DisplayQuestion extends AppCompatActivity {
             questionType2 = "Theory";
         }
 
-        displayQuestionText.setText(displayQuestionText.getText() + questionText);
-        displayQuestionType1.setText(displayQuestionType1.getText() + questionType1);
-        displayQuestionType2.setText(displayQuestionType2.getText() + questionType2);
-        displayQuestionDifficulty.setText(displayQuestionDifficulty.getText() + questionDifficulty + "/10");
-        displayQuestionTime.setText(displayQuestionTime.getText() + questionTime + " mins");
+        displayQuestionText.setText(questionText);
+        displayQuestionType1.setText(questionType1);
+        displayQuestionType2.setText(questionType2);
+        displayQuestionDifficulty.setText(questionDifficulty + "/10");
+        displayQuestionTime.setText(questionTime);
     }
 
 

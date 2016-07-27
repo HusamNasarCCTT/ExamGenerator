@@ -42,7 +42,7 @@
             android:parentActivityName=".QuestionManagement">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".QuestionManagement"/>
+                android:value=".QuestionManagement" />
         </activity>
         <activity android:name=".ExamGenerator" />
         <activity android:name=".DisplayExam" />
@@ -56,11 +56,20 @@
         </activity>
         <activity android:name=".UpdateUser" />
         <activity android:name=".UpdateQuestion" />
-        <activity android:name=".ViewExamDetails"
-                  android:parentActivityName=".DisplayExam">
+        <activity
+            android:name=".ViewExamDetails"
+            android:parentActivityName=".DisplayExam">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cctt.grad.examgenerator.DisplayExam" />
+        </activity>
+        <activity
+            android:name=".ViewCourseDetails"
+            android:label="@string/title_activity_view_course_details"
+            android:parentActivityName=".CourseManagement">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cctt.grad.examgenerator.CourseManagement" />
         </activity>
     </application>
 
