@@ -21,7 +21,8 @@ public class DisplayQuestion extends AppCompatActivity {
     private ExamDBHandler examDBHandler = null;
     private int courseId;
     private Intent intent = null;
-    private Bundle questionBundle = null;
+    private Bundle questionBundle = null,
+                   examParameterBundle = null;
     private String courseName, activityName = null;
     private CardView choiceContainer = null;
 
@@ -40,9 +41,11 @@ public class DisplayQuestion extends AppCompatActivity {
         activityName = intent.getStringExtra("Activity Name");
         if(activityName.equals("QuestionManagement"))
             getSupportActionBar().setTitle(courseName);
-        if(activityName.equals("DisplayExam"))
+        if(activityName.equals("DisplayExam")){
+            examParameterBundle = getIntent().getBundleExtra("Exam Parameters");
             setTitle(courseName + " Exam");
-        Bundle questionBundle = intent.getBundleExtra("Question Bundle");
+        }
+        questionBundle = intent.getBundleExtra("Question Bundle");
 
         //Initializing DB Handler...
         examDBHandler = new ExamDBHandler(this, null, null, 1);
@@ -116,16 +119,26 @@ public class DisplayQuestion extends AppCompatActivity {
             case android.R.id.home:
                 Intent backIntent;
                 if(activityName.equals("QuestionManagement")){
-                    backIntent = new Intent(this, QuestionManagement.class);
-                    Bundle backBundle = new Bundle();
-                    backBundle.putInt("Course ID", courseId);
-                    backIntent.putExtras(backBundle);
-                    startActivity(backIntent);
-                    finish();
-                }
-                if(activityName.equals("DisplayExam")){
+                    /*
+                        backIntent = new Intent(this, QuestionManagement.class);
+                        final int courseId = questionBundle.getInt("Course ID");
+                        Bundle backBundle = new Bundle();
+                        backBundle.putInt("Course ID", courseId);
+                        backIntent.putExtras(backBundle);
+                        startActivity(backIntent);*/
+                        finish();
 
                 }
+                if(activityName.equals("DisplayExam")){
+                    /*
+                        backIntent = new Intent(this, DisplayExam.class);
+                        final int courseId = questionBundle.getInt("Course ID");
+                        backIntent.putExtra("Course ID", courseId);
+                        backIntent.putExtras(examParameterBundle);
+                        startActivity(backIntent);*/
+                        finish();
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

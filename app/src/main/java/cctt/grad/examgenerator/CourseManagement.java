@@ -122,7 +122,7 @@ public class CourseManagement extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.edit_delete_context, menu);
+        inflater.inflate(R.menu.course_edit_delete_context, menu);
     }
 
     @Override
@@ -140,6 +140,7 @@ public class CourseManagement extends AppCompatActivity {
                 Intent courseEditorIntent = new Intent(CourseManagement.this, CourseEditor.class);
 
                 //Getting Old Course Data from selection and adding it to intent...
+                selectedCourse.putInt("Course ID", courseId);
                 courseEditorIntent.putExtras(selectedCourse);
                 startActivity(courseEditorIntent);
                 return true;
@@ -154,6 +155,13 @@ public class CourseManagement extends AppCompatActivity {
                                 Toast.makeText(CourseManagement.this, "Course deleted successfully", Toast.LENGTH_SHORT).show();
                             }
                         }).show();
+                return true;
+
+            case R.id.viewCourseDetails:
+                Intent toCourseDetails = new Intent(this, ViewCourseDetails.class);
+                toCourseDetails.putExtra("Course ID", courseId);
+                startActivity(toCourseDetails);
+                finish();
                 return true;
             default:
                 return super.onContextItemSelected(item);

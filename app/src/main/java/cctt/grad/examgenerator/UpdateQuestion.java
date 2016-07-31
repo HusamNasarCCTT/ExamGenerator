@@ -3,6 +3,8 @@ package cctt.grad.examgenerator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class UpdateQuestion extends Activity {
+public class UpdateQuestion extends AppCompatActivity {
 
 
     private TextView difficultyText = null;
@@ -47,6 +49,8 @@ public class UpdateQuestion extends Activity {
 
         //Initializing DB Handler...
         examDBHandler = new ExamDBHandler(this, null, null, 1);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Update Question");
 
         //Initializing Widgets...
         questionText = (EditText) findViewById(R.id.questionTextEdit);
@@ -108,6 +112,9 @@ public class UpdateQuestion extends Activity {
         _oldQuestion.set_pracOrTheory(oldQuestionData.getInt(examDBHandler.KEY_QUESTION_PRACTICAL_OR_THEORY));
         _oldQuestion.set_difficulty(oldQuestionData.getInt(examDBHandler.KEY_QUESTION_DIFFICULTY));
         _oldQuestion.set_time(oldQuestionData.getFloat(examDBHandler.KEY_QUESTION_TIME));
+        _oldQuestion.set_course(oldQuestionData.getInt("Course ID"));
+
+        courseId = _oldQuestion.get_course();
 
         //Setting old question data across widgets...
         questionText.setHint(_oldQuestion.get_text());
@@ -210,8 +217,27 @@ public class UpdateQuestion extends Activity {
         }
 
 
-
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch (item.getItemId()){
+
+            case android.R.id.home:
+
+                /*
+                Intent backIntent = new Intent(this, QuestionManagement.class);
+                Bundle backBundle = new Bundle();
+                backBundle.putInt("Course ID", courseId);
+                backIntent.putExtras(backBundle);
+                startActivity(backIntent);*/
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 }

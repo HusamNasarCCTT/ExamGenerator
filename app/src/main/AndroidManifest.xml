@@ -52,7 +52,7 @@
             android:parentActivityName=".CourseManagement">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="cctt.grad.examgenerator.CourseManagement" />
+                android:value=".CourseManagement" />
         </activity>
         <activity android:name=".UpdateUser" />
         <activity android:name=".UpdateQuestion" />
@@ -61,7 +61,7 @@
             android:parentActivityName=".DisplayExam">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="cctt.grad.examgenerator.DisplayExam" />
+                android:value=".DisplayExam" />
         </activity>
         <activity
             android:name=".ViewCourseDetails"

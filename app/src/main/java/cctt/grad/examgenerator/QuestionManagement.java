@@ -2,6 +2,8 @@ package cctt.grad.examgenerator;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ public class QuestionManagement extends AppCompatActivity {
     private ExamDBHandler examDBHandler;
     Intent courseIntent = null;
     private Bundle courseIntentData = null;
+    private Course courseData = null;
     private int courseId;
 
     private static final int MCQ = 0;
@@ -59,13 +62,16 @@ public class QuestionManagement extends AppCompatActivity {
         courseIntent = getIntent();
         courseIntentData = courseIntent.getExtras();
         courseId = courseIntentData.getInt("Course ID");
+        courseData = examDBHandler.getCourseById(courseId);
         if(courseIntentData.isEmpty()){
             return;
         }
-        final String courseName = courseIntentData.getString("Course Name");
+        final String courseName = courseData.get_name();
         setTitle(courseName);
 
+
         questionList.setAdapter(getQuestionListAdapter(courseId, BOTH));
+
 
         addQuestions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +89,7 @@ public class QuestionManagement extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Bundle bundle = (Bundle) parent.getItemAtPosition(position);
+                bundle.putInt("Course ID", courseId);
                 int questionId = bundle.getInt("Question Id");
                 int isMCQ = bundle.getInt("Mcq or Essay");
                 if(questionId == 0){
@@ -94,6 +101,7 @@ public class QuestionManagement extends AppCompatActivity {
                     intent.putExtra("Activity Name", "QuestionManagement");
                     intent.putExtra("courseIntentData", courseIntentData);
                     startActivity(intent);
+                    //finish();
                     }
             }
         });
@@ -104,6 +112,7 @@ public class QuestionManagement extends AppCompatActivity {
                 intent = new Intent(QuestionManagement.this, ExamGenerator.class);
                 intent.putExtras(courseIntentData);
                 startActivity(intent);
+                //finish();
                 //new ExamGeneratorDialog().show(getSupportFragmentManager(), "Exam Generator");
 
             }
@@ -153,6 +162,7 @@ public class QuestionManagement extends AppCompatActivity {
             case R.id.context_edit:
                 Intent toUpdateQuestionActivity = new Intent(QuestionManagement.this, UpdateQuestion.class);
                 toUpdateQuestionActivity.putExtras(bundle);
+                toUpdateQuestionActivity.putExtra("Course ID", courseId);
                 startActivity(toUpdateQuestionActivity);
                 return true;
             case R.id.context_delete:
@@ -186,8 +196,9 @@ public class QuestionManagement extends AppCompatActivity {
 
             case android.R.id.home:
 
+                /*
                 Intent backIntent = new Intent(this, CourseManagement.class);
-                startActivity(backIntent);
+                startActivity(backIntent);*/
                 finish();
                 return true;
 
@@ -231,5 +242,10 @@ public class QuestionManagement extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void sendDataToDBHandler(int courseId, int QType){
+
+
     }
 }

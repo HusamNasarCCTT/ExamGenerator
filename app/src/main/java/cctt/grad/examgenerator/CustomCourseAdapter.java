@@ -40,7 +40,7 @@ public class CustomCourseAdapter extends ArrayAdapter<Bundle> {
         int singleCourseYear = getItem(position).getInt("Course Year");
         int singleCourseTerm = getItem(position).getInt("Course Term");
 
-        courseIcon.setImageResource(R.drawable.course_icon);
+        courseIcon.setImageResource(R.drawable.question_icon__);
         courseName.setText(singleCourseName);
         courseYear.setText(String.valueOf(singleCourseYear));
         courseTerm.setText(getTermByInt(singleCourseTerm));

@@ -3,9 +3,11 @@
 
     <item
         android:id="@+id/view_details"
+        android:icon="@drawable/pie_chart"
         android:title="View Exam Details"/>
 
     <item
         android:id="@+id/regenerate_exam"
+        android:icon="@android:drawable/ic_popup_sync"
         android:title="Regenerate Exam"/>
 </menu>

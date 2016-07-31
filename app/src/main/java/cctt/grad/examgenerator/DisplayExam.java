@@ -123,14 +123,17 @@ public class DisplayExam extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = (Bundle) parent.getItemAtPosition(position);
                 int questionId = bundle.getInt("Question Id");
+                bundle.putInt("Course ID", courseId);
                 int isMCQ = bundle.getInt("Mcq or Essay");
                 if(questionId == 0){
                     Toast.makeText(DisplayExam.this, "Please add a question to the course", Toast.LENGTH_SHORT).show();
                 }else{
                     intent = new Intent(DisplayExam.this, DisplayQuestion.class);
+                    intent.putExtra("Course ID", courseId);
                     intent.putExtra("Question Bundle", bundle);
                     intent.putExtra("Course Name", examDBHandler.getCourseById(courseId).get_name());
                     intent.putExtra("Activity Name", "DisplayExam");
+                    intent.putExtra("Exam Parameters", examParameters);
                     startActivity(intent);
                 }
             }
@@ -157,7 +160,13 @@ public class DisplayExam extends AppCompatActivity {
                     default:
                         Toast.makeText(DisplayExam.this, "Something's wrong, Pato;", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(DisplayExam.this, "Exam Generated successfully", Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.displayExamCoordinator), "Exam Generated Successfully", Snackbar.LENGTH_SHORT)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                return;
+                            }
+                        }).show();
             }
         });
 
@@ -305,10 +314,11 @@ public class DisplayExam extends AppCompatActivity {
 
             case android.R.id.home:
 
+                /*
                 Intent backIntent = new Intent(this, ExamGenerator.class);
                 Bundle courseIntentData = new Bundle();
                 courseIntentData.putInt("Course ID", getIntent().getIntExtra("Course ID", 0));
-                startActivity(backIntent);
+                startActivity(backIntent);*/
                 finish();
                 return true;
             case R.id.view_details:
@@ -318,7 +328,7 @@ public class DisplayExam extends AppCompatActivity {
                 }else{
                     Intent toViewExamDetails = new Intent(DisplayExam.this, ViewExamDetails.class);
                     Bundle examDetails = new Bundle();
-
+                    examDetails.putInt("Course ID", courseId);
                     examDetails.putString("Course Name", examDBHandler.getCourseById(exam.get_course()).get_name());
                     examDetails.putInt("No of Questions", exam.get_noOfQuestions());
                     examDetails.putInt("Visual Difficulty", exam.get_visualDifficulty());
@@ -368,7 +378,13 @@ public class DisplayExam extends AppCompatActivity {
                     default:
                         Toast.makeText(DisplayExam.this, "Something's wrong, Pato;", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(DisplayExam.this, "Exam Generated successfully", Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.displayExamCoordinator), "Exam Generated Successfully", Snackbar.LENGTH_SHORT)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                return;
+                            }
+                        }).show();
                 return true;
 
             default:

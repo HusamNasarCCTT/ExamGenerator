@@ -36,15 +36,21 @@ public class CustomQuestionAdapter2 extends ArrayAdapter<Bundle> {
         //Acquiring data for row elements...
         String _questionText = getItem(position).getString("Question Text");
         String _mcqOrEssay; int _mcqOrEssayDefiner = getItem(position).getInt("Mcq or Essay");
-        if(_mcqOrEssayDefiner == 0)
+        if(_mcqOrEssayDefiner == 0){
             _mcqOrEssay = "MCQ";
-        else
+            //questionIcon.setImageResource(R.drawable.question_list);
+        }
+        else{
             _mcqOrEssay = "Essay";
+            //questionIcon.setImageResource(R.drawable.question_mark_sign);
+        }
         String _pracOrTheory; int _pracOrTheoryDefiner = getItem(position).getInt("Practical or Theory");
-        if(_pracOrTheoryDefiner == 0)
+        if(_pracOrTheoryDefiner == 0){
             _pracOrTheory = "Practical";
-        else
+        }
+        else{
             _pracOrTheory = "Theory";
+        }
 
 
         //Setting data for display in row elements...

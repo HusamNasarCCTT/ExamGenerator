@@ -177,9 +177,16 @@
             android:padding="20dp">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choices:"/>
+
+            <TextView
                 android:id="@+id/displayChoice1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Choice 1"/>
 
             <TextView
@@ -187,6 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Choice 2"/>
 
             <TextView
@@ -194,6 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Choice 3"/>
 
             <TextView
@@ -201,6 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Choice 4"/>
         </LinearLayout>
 

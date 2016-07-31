@@ -1,47 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:rowCount="2"
-    android:columnCount="3">
+    android:layout_height="wrap_content"
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/courseIcon"
-        android:src="@drawable/course_icon"
-        android:layout_rowSpan="2"
-        android:layout_row="0"
-        android:layout_column="0"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Large Text"
-        android:singleLine="false"
+        android:src="@drawable/question_icon__"/>
+
+    <TextView
         android:id="@+id/customCourseName"
-        android:layout_row="0"
-        android:layout_column="1" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:text="Any text here"
+        android:gravity="top"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
+        android:layout_toRightOf="@id/courseIcon"
+        android:layout_alignTop="@id/courseIcon"
+        />
+    <TextView
         android:id="@+id/customCourseTerm"
-        android:layout_row="1"
-        android:layout_column="1" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_rowSpan="2"
-        android:text="Small Text"
+        android:text="Any text here"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/courseIcon"
+        android:layout_alignBottom="@id/courseIcon"/>
+    <TextView
         android:id="@+id/customCourseYear"
-        android:layout_row="0"
-        android:layout_column="2" />
-
-</GridLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Any text here"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_alignBottom="@id/courseIcon"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

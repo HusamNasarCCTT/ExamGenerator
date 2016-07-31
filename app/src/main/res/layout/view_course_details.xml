@@ -1,53 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_exam_details_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="cctt.grad.examgenerator.ViewCourseDetails">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/courseDetailsName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No Text"
-            android:textAppearance="?android:textAppearanceLarge"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/courseDetailsYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No Text"
-            android:textAppearance="?android:textAppearanceLarge"/>
+        </LinearLayout>
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="fill"
+            card_view:cardUseCompatPadding="true"
+            card_view:cardElevation="@dimen/cardview_default_elevation"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardPreventCornerOverlap="true">
 
-        <TextView
-            android:id="@+id/courseDetailsTerm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No Text"
-            android:textAppearance="?android:textAppearanceLarge"/>
+            <TextView
+                android:id="@+id/viewCourseDetailsName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="C++"
+                android:textSize="72dp"/>
 
-        <TextView
-            android:id="@+id/courseDetailsNoOfQuestions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No Text"
-            android:textAppearance="?android:textAppearanceLarge"/>
+        </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/courseDetailsCreationDate"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Text"
-            android:textAppearance="?android:textAppearanceLarge"/>
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="200dp"
+                android:layout_gravity="fill"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/cardview_default_elevation"
+                card_view:cardCornerRadius="4dp"
+                card_view:contentPadding="24dp"
+                card_view:cardPreventCornerOverlap="true">
+
+                <TextView
+                    android:id="@+id/viewCourseDetailsNumOfEssays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="48dp"
+                    android:text="96"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:textSize="36dp"
+                    android:text="Essays"/>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="200dp"
+                android:layout_gravity="fill"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/cardview_default_elevation"
+                card_view:cardCornerRadius="4dp"
+                card_view:contentPadding="24dp"
+                card_view:cardPreventCornerOverlap="true">
+
+                <TextView
+                    android:id="@+id/viewCourseDetailsNumOfMCQs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="48dp"
+                    android:text="7"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:textSize="36dp"
+                    android:text="MCQs"/>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:layout_gravity="fill"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/cardview_default_elevation"
+                card_view:cardCornerRadius="4dp"
+                card_view:contentPadding="24dp"
+                card_view:cardPreventCornerOverlap="true">
+
+                <TextView
+                    android:id="@+id/viewCourseDetailsTheoryPercentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="48dp"
+                    android:text="96%"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:textSize="24dp"
+                    android:text="Theory"/>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:layout_gravity="fill"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/cardview_default_elevation"
+                card_view:cardCornerRadius="4dp"
+                card_view:contentPadding="24dp"
+                card_view:cardPreventCornerOverlap="true">
+
+                <TextView
+                    android:id="@+id/viewCourseDetailsPracticalPercentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="48sp"
+                    android:text="7%"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:textSize="24dp"
+                    android:text="Practical"/>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/cardview_default_elevation"
+                card_view:cardCornerRadius="4dp"
+                card_view:contentPadding="24dp"
+                card_view:cardPreventCornerOverlap="true">
+
+                <TextView
+                    android:id="@+id/viewCourseDetailsTerm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="42sp"
+                    android:text="Spring"/>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/cardview_default_elevation"
+                card_view:cardCornerRadius="4dp"
+                card_view:contentPadding="24dp"
+                card_view:cardPreventCornerOverlap="true">
+
+                <TextView
+                    android:id="@+id/viewCourseDetailsYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="42sp"
+                    android:text="2017"/>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
     </LinearLayout>
-
 </ScrollView>

@@ -8,6 +8,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -115,6 +116,9 @@ public class ExamDBHandler extends SQLiteOpenHelper {
     public final float PRACTICAL_MCQ_DIFF_POINTS = 1;
     public final float THEORY_ESSAY_DIFF_POINTS = 2;
     public final float PRACTICAL_ESSAY_DIFF_POINTS = 3;
+
+    //For testing means...
+    public Vector<Bundle> questions;
 
 
 
@@ -262,6 +266,26 @@ public class ExamDBHandler extends SQLiteOpenHelper {
                 db.close();
                 return returnValue;
         }
+    }
+
+    public Class readClass(int classId){
+
+        String query = "SELECT " + "*" + " FROM " + TABLE_CLASS + " WHERE (" + COLUMN_CLASS_ID + "=" + classId + ");";
+
+        SQLiteDatabase db = getWritableDatabase();
+        Class term = new Class();
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        if(!cursor.isBeforeFirst() || !cursor.isAfterLast()){
+
+            term.set_id(classId);
+            term.set_term(cursor.getInt(cursor.getColumnIndex(COLUMN_CLASS_TERM)));
+            term.set_year(cursor.getInt(cursor.getColumnIndex(COLUMN_CLASS_YEAR)));
+            cursor.moveToNext();
+        }
+
+        return term;
     }
 
     public void addTeacher(Teacher teacher){
@@ -613,6 +637,7 @@ public class ExamDBHandler extends SQLiteOpenHelper {
 
         final Vector<Bundle> questionVector = new Vector<Bundle>();
         final int courseID = courseId;
+
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -1052,7 +1077,7 @@ public class ExamDBHandler extends SQLiteOpenHelper {
 
 
 
-                    int realExamDifficulty = (newQuestionListSumOfDifficulties/_examQuestionList.size()) -1;
+                    double realExamDifficulty = (newQuestionListSumOfDifficulties/_examQuestionList.size());
                     int newExamDifficulty = 1;
 
                     if(realExamDifficulty >=1 && realExamDifficulty <=3)

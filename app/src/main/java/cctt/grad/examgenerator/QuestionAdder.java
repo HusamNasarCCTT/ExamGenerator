@@ -204,9 +204,11 @@ public class QuestionAdder extends AppCompatActivity {
 
             case android.R.id.home:
 
+                /*
                 Intent backIntent = new Intent(this, QuestionManagement.class);
                 backIntent.putExtras(courseIntentData);
-                startActivity(backIntent);
+                startActivity(backIntent);*/
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);
