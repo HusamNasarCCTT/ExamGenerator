@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,7 +55,8 @@ public class QuestionAdder extends AppCompatActivity {
         courseIntentData = courseIntent.getExtras();
         courseId = courseIntentData.getInt("Course ID");
         final String courseName = courseIntentData.getString("Course Name");
-        setTitle(courseName);
+        //setTitle(courseName);
+        setTitle("Add a New Question");
         if(courseIntentData.isEmpty()){
             return;
         }
@@ -184,7 +186,7 @@ public class QuestionAdder extends AppCompatActivity {
             examDBHandler.addChoices(choices);
         }
 
-        Toast.makeText(QuestionAdder.this, "Question added successfully", Toast.LENGTH_SHORT).show();
+        questionAddedSuccessfullyToast().show();
         questionText.setText("");
         choice1.setText("");
         choice2.setText("");
@@ -213,5 +215,16 @@ public class QuestionAdder extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public Toast questionAddedSuccessfullyToast(){
+        Toast toast = Toast.makeText(this, "Question added successfully", Toast.LENGTH_LONG);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.question_added, 0, 0, 0);
+        }
+
+        return toast;
     }
 }

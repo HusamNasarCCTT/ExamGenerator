@@ -318,9 +318,7 @@ public class ExamGenerator extends AppCompatActivity {
                 return true;
 
             case android.R.id.home:
-                Intent backIntent = new Intent(this, QuestionManagement.class);
-                backIntent.putExtras(courseIntentData);
-                startActivity(backIntent);
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);

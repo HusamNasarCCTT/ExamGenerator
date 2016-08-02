@@ -36,4 +36,8 @@
     <string name="title_activity_login_activityy">Sign in</string>
     <string name="title_activity_course_editor">CourseEditor</string>
     <string name="title_activity_view_course_details">ViewCourseDetails</string>
+
+    <string name="title_activity_view_exam_paper">ViewExamPaper</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

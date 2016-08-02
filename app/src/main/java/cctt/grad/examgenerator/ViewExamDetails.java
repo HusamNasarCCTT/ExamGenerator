@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -126,6 +127,7 @@ public class ViewExamDetails extends AppCompatActivity {
             graph.getViewport().setYAxisBoundsManual(true);
             graph.getViewport().setScrollable(true);
             graph.getViewport().setScalable(true);
+            graph.setClickable(true);
             graph.getGridLabelRenderer().setHorizontalAxisTitle("Questions");
             graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
             graph.getGridLabelRenderer().setVerticalAxisTitle("Difficulty");

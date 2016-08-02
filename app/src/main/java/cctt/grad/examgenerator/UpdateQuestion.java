@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -152,7 +153,7 @@ public class UpdateQuestion extends AppCompatActivity {
                     update();
                     questionText.setHint(_newQuestion.get_text());
                     questionText.setText("");
-                    Toast.makeText(UpdateQuestion.this, "Question updated successfully", Toast.LENGTH_SHORT).show();
+                    questionUpdatedSuccessfullyToast().show();
                     //startActivity(new Intent(UpdateQuestion.this, QuestionManagement.class));
                 }
             }
@@ -239,5 +240,16 @@ public class UpdateQuestion extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    public Toast questionUpdatedSuccessfullyToast(){
+        Toast toast = Toast.makeText(this, "Question updated successfully", Toast.LENGTH_LONG);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.question_edited, 0, 0, 0);
+        }
+
+        return toast;
     }
 }

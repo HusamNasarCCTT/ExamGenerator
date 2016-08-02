@@ -11,30 +11,6 @@
     <ListView
         android:id="@+id/questionList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="20" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-        <Button
-            android:id="@+id/addQuestions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add New Question"
-            android:background="?android:attr/selectableItemBackground"
-            android:gravity="center" />
-        <Button
-            android:id="@+id/toExamGeneration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Generate Exam"
-            android:background="?android:attr/selectableItemBackground"
-            android:gravity="center" />
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

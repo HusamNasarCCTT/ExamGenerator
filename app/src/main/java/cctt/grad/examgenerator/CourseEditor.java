@@ -3,10 +3,12 @@ package cctt.grad.examgenerator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -64,8 +66,8 @@ public class CourseEditor extends AppCompatActivity {
                 }else{
                     if(courseYearValidator(courseYearField.getText().toString())){
                         updateCourse();
-                        Toast.makeText(CourseEditor.this, "Course update successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(CourseEditor.this, CourseManagement.class));
+                        courseUpdatedSuccessfullyToast().show();
+                        finish();
                     }else{
                         Toast.makeText(CourseEditor.this, "Make sure year is in the 21st century", Toast.LENGTH_SHORT).show();
                     }
@@ -123,6 +125,17 @@ public class CourseEditor extends AppCompatActivity {
         course.set_courseClass(newCourseClass);
 
         examDBHandler.updateCourse(course);
+    }
+
+    public Toast courseUpdatedSuccessfullyToast(){
+        Toast toast = Toast.makeText(this, "Course Updated Successfully", Toast.LENGTH_LONG);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.edit_course, 0, 0, 0);
+        }
+
+        return toast;
     }
 
 }

@@ -3,9 +3,11 @@ package cctt.grad.examgenerator;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -39,6 +42,7 @@ public class CourseManagement extends AppCompatActivity {
 
         //To display Back/Home button...
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.logout);
 
         //DB Handler initialization...
         examDbHandler = new ExamDBHandler(this, null, null, 1);
@@ -152,7 +156,7 @@ public class CourseManagement extends AppCompatActivity {
                             public void onClick(View v) {
                                 examDbHandler.removeCourse(courseId);
                                 courseList.setAdapter(getCourseListAdapter());
-                                Toast.makeText(CourseManagement.this, "Course deleted successfully", Toast.LENGTH_SHORT).show();
+                                courseDeletedSuccessfullyToast().show();
                             }
                         }).show();
                 return true;
@@ -161,7 +165,6 @@ public class CourseManagement extends AppCompatActivity {
                 Intent toCourseDetails = new Intent(this, ViewCourseDetails.class);
                 toCourseDetails.putExtra("Course ID", courseId);
                 startActivity(toCourseDetails);
-                finish();
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -182,8 +185,14 @@ public class CourseManagement extends AppCompatActivity {
         switch (item.getItemId()){
 
             case android.R.id.home:
-                sessionManager.logoutUser();
-                finish();
+                Snackbar.make(getCurrentFocus(), "Log out?", Snackbar.LENGTH_LONG)
+                        .setAction("Yes", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                sessionManager.logoutUser();
+                                finish();
+                            }
+                        }).show();
                 return true;
 
             case R.id.updateAccountDetails:{
@@ -241,5 +250,16 @@ public class CourseManagement extends AppCompatActivity {
                                 }).show();
                     }
                 }).show();
+    }
+
+    public Toast courseDeletedSuccessfullyToast(){
+        Toast toast = Toast.makeText(this, "Course Deleted Successfully", Toast.LENGTH_LONG);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.delete_course, 0, 0, 0);
+        }
+
+        return toast;
     }
 }

@@ -3,6 +3,7 @@ package cctt.grad.examgenerator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.HorizontalScrollView;
@@ -42,6 +43,7 @@ public class ViewCourseDetails extends AppCompatActivity {
         //Initializing DB Handler and Session Manager...
         examDBHandler = new ExamDBHandler(this, null, null, 1);
         sessionManager = new SessionManager(getApplicationContext());
+        getSupportActionBar().setIcon(R.drawable.view_course);
 
         //Initializing Widgets...
         viewCourseDetailsName = (TextView) findViewById(R.id.viewCourseDetailsName);

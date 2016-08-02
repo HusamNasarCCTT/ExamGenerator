@@ -8,7 +8,7 @@
         android:id="@+id/questionIcon2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/question_icon__"/>
+        android:src="@drawable/question_iconnn"/>
 
     <TextView
         android:id="@+id/customQuestionText2"

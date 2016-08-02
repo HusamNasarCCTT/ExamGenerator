@@ -54,9 +54,9 @@ public class CustomQuestionAdapter2 extends ArrayAdapter<Bundle> {
 
 
         //Setting data for display in row elements...
-        questionIcon.setImageResource(R.drawable.question_icon__);
+        questionIcon.setImageResource(R.drawable.question_iconnn);
         if(_questionText.length() > 150)
-            questionText.setText(_questionText.substring(0, 149) + "...");
+            questionText.setText(_questionText.substring(0, 150) + "...");
         else
             questionText.setText(_questionText);
         questionMcqOrEssay.setText(_mcqOrEssay);

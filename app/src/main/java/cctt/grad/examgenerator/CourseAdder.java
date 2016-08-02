@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CourseAdder extends AppCompatActivity {
@@ -25,6 +28,7 @@ public class CourseAdder extends AppCompatActivity {
 
         //To display Home/Back Button...
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Add a Course");
 
         //Widget Initialization...
         courseName = (EditText) findViewById(R.id.courseName);
@@ -60,8 +64,13 @@ public class CourseAdder extends AppCompatActivity {
                         int _courseClass = examDbHandler.getClassIdOrCreateClassId(getApplicationContext(), _courseYear, semester);
                         Course course = new Course(_courseName, _teacherId, _courseClass);
                         examDbHandler.addCourse(course, courseClass);
-                        Toast.makeText(CourseAdder.this, "New Course:\n"
-                                + course.get_name() + "\nadded successfully", Toast.LENGTH_SHORT).show();
+                        /*Toast.makeText(CourseAdder.this, "New Course:\n"
+                                + course.get_name() + "\nadded successfully", Toast.LENGTH_SHORT).show();*/
+                        try{
+                            courseAddedSuccessfullyToast().show();
+                        }catch (Exception e){
+                            Toast.makeText(CourseAdder.this, e.toString(), Toast.LENGTH_LONG).show();
+                        }
                         courseName.setText("");
                         courseYear.setText("");
                     }else
@@ -105,5 +114,17 @@ public class CourseAdder extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public Toast courseAddedSuccessfullyToast(){
+
+        Toast toast = Toast.makeText(this, "Course Added Successfully", Toast.LENGTH_LONG);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.course_added_successfully, 0, 0, 0);
+        }
+
+        return toast;
     }
 }

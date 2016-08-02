@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +39,7 @@ public class TeacherManagement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_management);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         //Widget Initialization...
@@ -58,6 +59,7 @@ public class TeacherManagement extends AppCompatActivity {
         username = sessionManager.sharedPreferences.getString(sessionManager.KEY_USERNAME, "null");
 
         if(! username.matches("admin")){
+            setTitle("Create Account");
             teacherList.setVisibility(View.GONE);
             teacherAdder.setText("Register");
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -67,6 +69,8 @@ public class TeacherManagement extends AppCompatActivity {
             teacherAdder.setLayoutParams(params);
         }else{
             teacherList.setAdapter(getTeacherAdapter());
+
+            getSupportActionBar().setTitle("Admin Dashboard");
 
             //Registering Teacher list for context menu...
             registerForContextMenu(teacherList);
@@ -131,6 +135,7 @@ public class TeacherManagement extends AppCompatActivity {
                             public void onClick(View v) {
                                 examDBHandler.removeTeacher(teacherId);
                                 teacherList.setAdapter(getTeacherAdapter());
+                                teacherDeletedSuccessfullyToast().show();
                             }
                         }).show();
             }
@@ -148,10 +153,7 @@ public class TeacherManagement extends AppCompatActivity {
 
         Teacher teacher = new Teacher(_tName, _uName, _pWord, true);
         examDBHandler.addTeacher(teacher);
-        Toast.makeText(TeacherManagement.this, "Teacher Name: " + teacher.get_name() + "\n"
-                        +  "Username: " + teacher.get_username() + "\n"
-                        +  "Password: " + teacher.get_password() + "\nAdded"
-                , Toast.LENGTH_SHORT).show();
+        teacherAddedSuccessfullyToast().show();
         if(username.matches("admin")){
             teacherList.setAdapter(getTeacherAdapter());
         }
@@ -161,6 +163,11 @@ public class TeacherManagement extends AppCompatActivity {
 
         if(_tName.isEmpty()){
             teacherName.setError("This field is required");
+            return false;
+        }
+
+        if(_tName.length() > 18){
+            teacherName.setError("Name too long\nMaximum Character set is 18");
             return false;
         }
 
@@ -188,4 +195,28 @@ public class TeacherManagement extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public Toast teacherAddedSuccessfullyToast(){
+        Toast toast = Toast.makeText(this, "Teacher Added Successfully", Toast.LENGTH_LONG);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.user_added, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+    public Toast teacherDeletedSuccessfullyToast(){
+        Toast toast = Toast.makeText(this, "Teacher Deleted Successfully", Toast.LENGTH_LONG);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.user_deleted, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+
 }

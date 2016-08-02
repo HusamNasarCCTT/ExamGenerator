@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design">
+        android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,6 +70,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cctt.grad.examgenerator.CourseManagement" />
+        </activity>
+        <activity
+            android:name=".ViewExamPaper"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_view_exam_paper"
+            android:parentActivityName=".DisplayExam"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cctt.grad.examgenerator.DisplayExam" />
         </activity>
     </application>
 

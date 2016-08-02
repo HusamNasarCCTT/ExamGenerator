@@ -1,51 +1,31 @@
 package cctt.grad.examgenerator;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
-import android.graphics.pdf.PdfDocument;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
-import android.print.PrintAttributes;
-import android.print.pdf.PrintedPdfDocument;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.FontFactoryImp;
-import com.itextpdf.text.List;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.fonts.otf.Language;
-import com.itextpdf.text.pdf.languages.ArabicLigaturizer;
-import com.itextpdf.text.pdf.languages.LanguageProcessor;
-import com.jjoe64.graphview.GraphView;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -160,13 +140,14 @@ public class DisplayExam extends AppCompatActivity {
                     default:
                         Toast.makeText(DisplayExam.this, "Something's wrong, Pato;", Toast.LENGTH_SHORT).show();
                 }
-                Snackbar.make(findViewById(R.id.displayExamCoordinator), "Exam Generated Successfully", Snackbar.LENGTH_SHORT)
+                /*Snackbar.make(findViewById(R.id.displayExamCoordinator), "Exam Generated Successfully", Snackbar.LENGTH_SHORT)
                         .setAction("OK", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 return;
                             }
-                        }).show();
+                        }).show();*/
+                //examGeneratedSuccessfullyToast().show();
             }
         });
 
@@ -178,8 +159,7 @@ public class DisplayExam extends AppCompatActivity {
                 printExam(exam);
             }
         });
-
-
+        setTitle(examDBHandler.getCourseById(courseId).get_name() + " Exam");
 
 
     }
@@ -217,15 +197,14 @@ public class DisplayExam extends AppCompatActivity {
         exam = examDBHandler.examQuestionListByDifficulty(exam);
 
         if(exam.get_questionList() == null){
-            Toast.makeText(DisplayExam.this, "No questions meet the entered parameters, please enter more questions with" +
-                    " the desired parameters", Toast.LENGTH_SHORT).show();
+            examCouldntBeGeneratedToast().show();
         }else{
             if(exam.get_time() < exam.get_maxTime()/2){
-                Toast.makeText(DisplayExam.this, "We would advise to add more questions" +
-                        " with a difficulty of " + String.valueOf(MIN) + " TO " + String.valueOf(MAX) + " as the generated exam time is way too low", Toast.LENGTH_LONG).show();
+                addMoreQuestionsWithFixedDifficulties(MIN, MAX).show();
             }
             CustomQuestionAdapter2 adapter = new CustomQuestionAdapter2(this, questionVectorToBundleVector(exam.get_questionList()));
             questionListView.setAdapter(adapter);
+            examGeneratedSuccessfullyToast().show();
 
         }
     }
@@ -241,14 +220,14 @@ public class DisplayExam extends AppCompatActivity {
 
         exam = examDBHandler.examQuestionListByTime(exam);
         if(exam.get_questionList() == null){
-            Toast.makeText(DisplayExam.this, "No questions meet the entered parameters, please enter more questions with" +
-                    " the desired parameters", Toast.LENGTH_SHORT).show();
+            examCouldntBeGeneratedToast().show();
         }else{
             if(exam.get_time() < exam.get_maxTime()/2){
-                Toast.makeText(DisplayExam.this, "We would advise to add more questions" + " as the generated exam time is way too low", Toast.LENGTH_LONG).show();
+                examGeneratedWithAdviceToast().show();
             }
             CustomQuestionAdapter2 adapter = new CustomQuestionAdapter2(this, questionVectorToBundleVector(exam.get_questionList()));
             questionListView.setAdapter(adapter);
+            examGeneratedSuccessfullyToast().show();
 
         }
 
@@ -266,18 +245,17 @@ public class DisplayExam extends AppCompatActivity {
 
         exam = examDBHandler.examQuestionListByNoOfQuestions(exam);
         if(exam.get_questionList() == null){
-            Toast.makeText(DisplayExam.this, "No questions meet the entered parameters, please enter more questions with" +
-                    " the desired parameters", Toast.LENGTH_SHORT).show();
+            examCouldntBeGeneratedToast().show();
         }else{
             if(exam.get_time() < exam.get_maxTime()/2){
-                Toast.makeText(DisplayExam.this, "We would advise to add more questions" + " as the generated exam time is way too low", Toast.LENGTH_LONG).show();
+                addMoreQuestionsTimeTooLowToast().show();
             }
             if(exam.get_noOfQuestions() < noOfQuestions){
-                Toast.makeText(DisplayExam.this, "I would advise to add more questions" +
-                        " as the system's available number of questions is insufficient", Toast.LENGTH_SHORT).show();
+                addMoreQuestionsInsufficientQuestionsToast().show();
             }
             CustomQuestionAdapter2 adapter = new CustomQuestionAdapter2(this, questionVectorToBundleVector(exam.get_questionList()));
             questionListView.setAdapter(adapter);
+            examGeneratedSuccessfullyToast().show();
 
         }
     }
@@ -323,8 +301,7 @@ public class DisplayExam extends AppCompatActivity {
                 return true;
             case R.id.view_details:
                 if(exam.get_questionList() == null){
-                    Toast.makeText(DisplayExam.this, "No exam to view, as questions " +
-                            "with the requested parameters do not exist", Toast.LENGTH_SHORT).show();
+                    examCouldntBeGeneratedToast().show();
                 }else{
                     Intent toViewExamDetails = new Intent(DisplayExam.this, ViewExamDetails.class);
                     Bundle examDetails = new Bundle();
@@ -378,13 +355,13 @@ public class DisplayExam extends AppCompatActivity {
                     default:
                         Toast.makeText(DisplayExam.this, "Something's wrong, Pato;", Toast.LENGTH_SHORT).show();
                 }
-                Snackbar.make(findViewById(R.id.displayExamCoordinator), "Exam Generated Successfully", Snackbar.LENGTH_SHORT)
+                /*Snackbar.make(findViewById(R.id.displayExamCoordinator), "Exam Generated Successfully", Snackbar.LENGTH_SHORT)
                         .setAction("OK", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 return;
                             }
-                        }).show();
+                        }).show();*/
                 return true;
 
             default:
@@ -396,6 +373,7 @@ public class DisplayExam extends AppCompatActivity {
 
 
     public void printExam(Exam _exam){
+
 
         //Constructing Filename generation with DDMMYYYYhhmmss format, e.g: 03051993235312
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyhhmmss");
@@ -431,6 +409,9 @@ public class DisplayExam extends AppCompatActivity {
             });
 
             Toast.makeText(DisplayExam.this, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ViewExamPaper.class));
+
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -440,59 +421,100 @@ public class DisplayExam extends AppCompatActivity {
 
     public Document prepareDocument(Document _document){
 
-
-        //Adding Header Attributes...
-        _document.addAuthor(examDBHandler.getTeacherName(teacherId, this));
-        _document.addCreationDate();
+        _document.addAuthor("Hussam");
+        _document.addTitle("Whatever");
         _document.addProducer();
-        _document.addCreator("Exam Generator");
-        _document.addTitle("Dummy test page");
-        _document.setPageSize(PageSize.A4);
-        // left,right,top,bottom
-        _document.setMargins(36, 36, 36, 36);
-        _document.setMarginMirroring(true);
+        _document.addCreationDate();
+        _document.addCreator("Some Creator");
 
+        Paragraph arabicTester = new Paragraph("حسام");
+        Paragraph englishTester = new Paragraph("Hussameddin Mohammed Nasar");
 
-        //Adding an Anchor...
-        Anchor anchor = new Anchor();
-        anchor.setName("First Chapter");
-        BaseFont baseFont;
-
-        try {
-             baseFont = BaseFont.createFont("assets/FreeSans/FreeSans.ttf", "UTF-8", BaseFont.EMBEDDED);
+        Font arabicFont, englishFont;
+        try{
+            //arabicFont = new Font(BaseFont.createFont("assets/FreeSans/FreeSans.ttf", "UTF-8", BaseFont.EMBEDDED));
+            //arabicFont = new Font(BaseFont.createFont("assets/DroidKufi/DroidKufi-Regular.ttf", "UTF-8", BaseFont.NOT_EMBEDDED));
+            //arabicFont = FontFactory.getFont(FontFactory.TIMES_ROMAN);
+            arabicFont = FontFactory.getFont(FontFactory.TIMES_ROMAN);
+            englishFont = FontFactory.getFont(FontFactory.TIMES_ROMAN);
+            arabicTester.setFont(arabicFont);
+            englishTester.setFont(englishFont);
+            _document.add(arabicTester);
+            _document.add(englishTester);
         }catch (Exception e){
-            baseFont = null;
+            e.printStackTrace();
         }
-        Font font = new Font(baseFont, 12);
-        //Font font = FontFactory.getFont("assets/DroidKufi/DroidKufi-Regular.ttf", "Cp1250", BaseFont.EMBEDDED);
-        //Font font = FontFactory.getFont("assets/FreeSans/FreeSans.ttf", "Cp1250", BaseFont.EMBEDDED);
-        font.setSize(24);
-        font.setColor(BaseColor.BLACK);
-        font.setStyle(Font.NORMAL);
-        //font.setFamily("Droid Arabic Kufi");
-
-
-        //Adding a List...
-        List list = new List();
-
-        Paragraph p = new Paragraph(exam.get_questionList().firstElement().get_text());
-        Paragraph p1 = new Paragraph("Just testing whether or not I'm doing it wrong");
-        p.setFont(font);
-        p1.setFont(font);
-
-
-
-        try {
-            _document.add(anchor);
-            _document.add(p);
-            _document.add(p1);
-        }catch (DocumentException d){
-            Toast.makeText(DisplayExam.this, d.toString(), Toast.LENGTH_SHORT).show();
-        }
-
-
 
         return _document;
+    }
+
+    public Toast examGeneratedSuccessfullyToast(){
+        Toast toast = Toast.makeText(this, "Exam Generated Successfully", Toast.LENGTH_SHORT);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.exam_success, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+    public Toast examGeneratedWithAdviceToast(){
+        Toast toast = Toast.makeText(this, "We would advise to add more questions" + " as the generated exam time is way too low", Toast.LENGTH_SHORT);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.exam_caution, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+    public Toast examCouldntBeGeneratedToast(){
+        Toast toast = Toast.makeText(this, "No exam to view, as questions " +
+                "with the requested parameters do not exist", Toast.LENGTH_SHORT);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.exam_fail, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+    public Toast addMoreQuestionsTimeTooLowToast(){
+        Toast toast = Toast.makeText(this, "We would advise to add more questions" + " as the generated exam time is way too low", Toast.LENGTH_SHORT);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.exam_caution, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+    public Toast addMoreQuestionsInsufficientQuestionsToast(){
+        Toast toast = Toast.makeText(this, "I would advise to add more questions" +
+                " as the system's available number of questions is insufficient", Toast.LENGTH_SHORT);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.exam_caution, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+    public Toast addMoreQuestionsWithFixedDifficulties(int min, int max){
+        Toast toast = Toast.makeText(this, "We would advise to add more questions" +
+                " with a difficulty of " + String.valueOf(min) + " TO " + String.valueOf(max) + " as the generated exam time is way too low", Toast.LENGTH_SHORT);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.exam_caution, 0, 0, 0);
+        }
+
+        return toast;
     }
 
 }

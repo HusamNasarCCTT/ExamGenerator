@@ -50,6 +50,13 @@
             card_view:contentPaddingBottom="10dp"
             android:layout_width="wrap_content">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/exam_details_questions"/>
+
             <TextView
                 android:id="@+id/viewExamNoOfQuestions"
                 android:layout_width="wrap_content"
@@ -90,6 +97,12 @@
                 card_view:cardCornerRadius="4dp"
                 card_view:cardPreventCornerOverlap="true">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/essay_icon"/>
                 <TextView
                     android:id="@+id/viewExamNoOfEssays"
                     android:layout_width="wrap_content"
@@ -119,6 +132,13 @@
                 card_view:cardCornerRadius="4dp"
                 card_view:cardPreventCornerOverlap="true">
 
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/question_list"/>
                 <TextView
                     android:id="@+id/viewExamNoOfMCQs"
                     android:layout_width="wrap_content"
@@ -163,6 +183,12 @@
                 card_view:cardCornerRadius="4dp"
                 card_view:cardPreventCornerOverlap="true">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/theory_icon"/>
                 <TextView
                     android:id="@+id/theoryPercentage"
                     android:layout_width="wrap_content"
@@ -193,6 +219,13 @@
                 card_view:cardCornerRadius="4dp"
                 card_view:cardPreventCornerOverlap="true">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/practical_icon"/>
+
 
                 <TextView
                     android:id="@+id/practicalPercentage"
@@ -222,6 +255,13 @@
                 card_view:cardElevation="@dimen/cardview_default_elevation"
                 card_view:cardCornerRadius="4dp"
                 card_view:cardPreventCornerOverlap="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/time_icon"/>
 
                 <TextView
                     android:id="@+id/viewExamTime"

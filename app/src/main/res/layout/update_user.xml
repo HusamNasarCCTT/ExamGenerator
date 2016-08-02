@@ -22,8 +22,27 @@
             android:id="@+id/passwordEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:fontFamily="sans-serif"
             android:gravity="center_horizontal"
             android:hint="Enter Password"/>
+
+
+        <EditText
+            android:id="@+id/newUsernameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:hint="Enter New Username"/>
+
+        <EditText
+            android:id="@+id/newPasswordEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
+            android:hint="Enter New Password"/>
 
         <Button
             android:id="@+id/updateUserEdit"

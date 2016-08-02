@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -71,8 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 sessionManager.createLoginSession(teacherId, userName, passWord);
                 if(userName.equals("admin")){
                     startActivity(new Intent(LoginActivity.this, TeacherManagement.class));
-                    Toast.makeText(LoginActivity.this, "Admin login successful.\n" +
-                            "You have Administrative permissions.", Toast.LENGTH_LONG).show();
+                    adminLoginSuccessfulToast().show();
                 }else{
                     startActivity(new Intent(LoginActivity.this, CourseManagement.class));
                     finish();
@@ -102,5 +103,16 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
+    public Toast adminLoginSuccessfulToast(){
+        Toast toast = Toast.makeText(LoginActivity.this, "Admin login successful.\n" +
+                "You have Administrative permissions.", Toast.LENGTH_LONG);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.user_admin, 0, 0, 0);
+        }
+
+        return toast;
+    }
 
 }

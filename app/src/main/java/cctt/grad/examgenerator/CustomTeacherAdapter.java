@@ -47,7 +47,7 @@ public class CustomTeacherAdapter extends ArrayAdapter<Bundle> {
         }
 
         //Setting data for display on row...
-        teacherIcon.setImageResource(R.drawable.user_icon);
+        teacherIcon.setImageResource(R.drawable.user_iconn);
         teacherName.setText(_teacherName);
         userName.setText(_userName);
         passWord.setText(_passWord);
