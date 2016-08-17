@@ -1,6 +1,9 @@
 package cctt.grad.examgenerator.View;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Vector;
 
 import cctt.grad.examgenerator.Presenter.ExamDBHandler;
@@ -61,6 +65,7 @@ public class DisplayExam extends AppCompatActivity {
 
     private final int ENGLISH = 1, ARABIC = 2;
     private int reportLanguage = ENGLISH;
+    private String courseName, teacherName = null;
 
     //Animation variables...
     Animation show_popupAssistor;
@@ -75,6 +80,8 @@ public class DisplayExam extends AppCompatActivity {
     private final String englishAlphabetPattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private final String standardArabicAlphabetPattern = "أبتثجحخدذرزسشصضطظعغفقكلمنهوي";
     private final String complementArabicAlphabetPattern = "";
+
+    private String pdfFileDirectory = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -383,14 +390,15 @@ public class DisplayExam extends AppCompatActivity {
         //Constructing Filename generation with DDMMYYYYhhmmss format, e.g: 03051993235312
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyhhmmss");
 
-        String courseName = examDBHandler.getCourseById(_exam.get_course()).get_name();
-        String teacherName = examDBHandler.getTeacherName(exam.get_teacher());
+        courseName = examDBHandler.getCourseById(_exam.get_course()).get_name();
+        teacherName = examDBHandler.getTeacherName(exam.get_teacher());
 
         String pdfName = courseName + "_EXAM_" + sdf.format(Calendar.getInstance().getTime()) + ".pdf";
 
         try {
             //Step 1- Create file in Internal Storage...
 
+            pdfFileDirectory = Environment.DIRECTORY_DOCUMENTS + "/" + teacherName + "/" + courseName;
             File file = new File(this.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS + "/" + teacherName + "/" + courseName), pdfName);
             file.createNewFile();
             file.setReadable(true);
@@ -416,6 +424,31 @@ public class DisplayExam extends AppCompatActivity {
             Toast.makeText(DisplayExam.this, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             startActivity(toPrintExam);*/
 
+            //Open file with PDF Reader if one should exist...
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(file.getAbsolutePath()));
+            intent.setType("application/pdf");
+            PackageManager pm = getPackageManager();
+            List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
+            if (activities.size() > 0) {
+                startActivity(intent);
+            } else {
+                // Do something else here. Maybe pop up a Dialog or Toast
+                Snackbar.make(getCurrentFocus(), "Sorry, but no suitable PDF reader is installed", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Ok", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Snackbar.make(getCurrentFocus(), "Please install a PDF reader to view exam", Snackbar.LENGTH_INDEFINITE)
+                                        .setAction("Ok", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                return;
+                                            }
+                                        }).show();
+                            }
+                        }).show();
+            }
+
             Toast.makeText(DisplayExam.this, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
 
 
@@ -427,8 +460,8 @@ public class DisplayExam extends AppCompatActivity {
 
     public Document prepareDocument(Document _document){
 
-        _document.addAuthor("Hussam");
-        _document.addTitle("Whatever");
+        _document.addAuthor(teacherName);
+        _document.addTitle(courseName);
         _document.addProducer();
         _document.addCreationDate();
         _document.addCreator("Exam Generator");

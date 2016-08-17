@@ -396,6 +396,14 @@ public class QuestionManagement extends AppCompatActivity {
                 }
                 return true;
 
+            case R.id.context_view_course_exams:
+                Intent toExamManagement = new Intent(this, ExamManagement.class);
+                Bundle examManagementBundle = new Bundle();
+                examManagementBundle.putInt("Course ID", courseId);
+                toExamManagement.putExtras(examManagementBundle);
+                startActivity(toExamManagement);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

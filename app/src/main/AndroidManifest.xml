@@ -81,6 +81,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.DisplayExam" />
         </activity>
+        <activity android:name=".View.ExamManagement"></activity>
     </application>
 
 </manifest>

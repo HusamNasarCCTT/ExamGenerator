@@ -12,8 +12,13 @@
     <item
         android:id="@+id/context_view_essays"
         android:title="View Essays"/>
+
     <item
         android:id="@+id/context_delete_all"
         android:title="Delete All Questions"/>
+
+    <item
+        android:id="@+id/context_view_course_exams"
+        android:title="View Course Exams"/>
 
 </menu>
