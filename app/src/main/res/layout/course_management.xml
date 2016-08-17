@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cctt.grad.examgenerator.CourseManagement"
+    tools:context=".View.CourseManagement"
     android:id="@+id/course_management"
     android:gravity="center_horizontal">
 

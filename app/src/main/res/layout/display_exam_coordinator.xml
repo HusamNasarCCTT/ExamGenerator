@@ -10,11 +10,13 @@
     <include layout="@layout/display_exam"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/regenerateButton"
+        android:id="@+id/floatingActionOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_popup_sync" />
+        android:src="@android:drawable/button_onoff_indicator_off" />
+
+    <include layout="@layout/display_exam_fab_layout"/>
 
 </android.support.design.widget.CoordinatorLayout>

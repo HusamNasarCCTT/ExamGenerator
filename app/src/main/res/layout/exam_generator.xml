@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="cctt.grad.examgenerator.ExamGenerator">
+        tools:context=".View.ExamGenerator">
 
         <LinearLayout
             android:id="@+id/exam_generator_layout"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Exam Material"
-                android:id="@+id/textView2"/>
+                android:id="@+id/examMaterialText"/>
 
             <CheckBox
                 android:layout_width="wrap_content"

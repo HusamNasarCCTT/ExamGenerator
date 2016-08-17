@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="cctt.grad.examgenerator.UpdateUser">
+    tools:context=".View.UpdateUser">
 
     <LinearLayout
         android:layout_width="match_parent"

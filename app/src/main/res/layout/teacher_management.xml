@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context="cctt.grad.examgenerator.TeacherManagement"
+    tools:context=".View.TeacherManagement"
     android:id="@+id/myLayout">
 
             <EditText
@@ -13,6 +13,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="5dp"
                 android:hint="Teacher Name"
                 android:gravity="center_horizontal"/>
 
@@ -36,7 +37,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/teacherList"
         android:layout_weight="20"

@@ -1,3 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_5ee451220ff2cca999f3e7b2b4584f7127471c9f\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\.gradle\caches\modules-2\files-2.1\com.itextpdf\itextg\5.5.9\3580383b2c7db8fa2fee1ffbe1993017a9ea296e\itextg-5.5.9.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="3580383b2c7db8fa2fee1ffbe1993017a9ea296e">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\itextg-5.5.9_5809521a304e028734ee50c6a3a3f441a9845b55\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="770b9732561a1f565315f4141013683f194c09c1">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1b092b620c137cc5d74b9d8ef3a59421ea175990\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.4.0_e4c4e30d28253d1335adb5f1ad7ae28674e89096\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.android.support\design\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.3.0_dfbe9519a037209147f21e32f201fd67fa996b46\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="0b01b91e99c72a3a308a2fc83702a6cf35893054">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_ee704a0090f4ee7e99e984dc5cd7898d2d11b0d5\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.1.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4c3d3a13609902b8ba7d7fda23d85797fdbd4223">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.jjoe64-graphview-4.1.0_368a6168c62ab3f1ebdef6a8b111429d1bc4dba2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.4.0_843ecc65e5152f076f5a2915760b5a9dafebdc48\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_da85afddef75a78d0401ce6fe9a3d95fd4d37454\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_3448b90ad36a0336f0eb91dacab2d8a9635e7db3\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_20308b066b24212e6947fbe4dc0d98722aeb8cb2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_b15713bdd4329439ecb8588b62293fb246b230a4\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Hussam Nasar\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="C:\Users\Hussam Nasar\AndroidStudioProjects\ExamGenerator\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_f40e4632de6798bf381df494a16830f28f33d8d6\classes.dex" />
+    </item>
+
+</items>

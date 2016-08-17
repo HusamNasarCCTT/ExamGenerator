@@ -11,75 +11,75 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".View.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".View.MainActivity" />
         <activity
-            android:name=".TeacherManagement"
+            android:name=".View.TeacherManagement"
             android:label="@string/title_activity_teacher_management"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".View.MainActivity"
             android:theme="@style/Theme.Design.Light">
 
             <!--
                 <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="cctt.grad.examgenerator.MainActivity" />
+                android:value="cctt.grad.examgenerator.View.MainActivity" />
             -->
         </activity>
         <activity
-            android:name=".CourseManagement"
+            android:name=".View.CourseManagement"
             android:label="Course List" />
-        <activity android:name=".QuestionAdder" />
-        <activity android:name=".CourseAdder" />
-        <activity android:name=".QuestionManagement" />
+        <activity android:name=".View.QuestionAdder" />
+        <activity android:name=".View.CourseAdder" />
+        <activity android:name=".View.QuestionManagement" />
         <activity
-            android:name=".DisplayQuestion"
-            android:parentActivityName=".QuestionManagement">
+            android:name=".View.DisplayQuestion"
+            android:parentActivityName=".View.QuestionManagement">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".QuestionManagement" />
+                android:value=".View.QuestionManagement" />
         </activity>
-        <activity android:name=".ExamGenerator" />
-        <activity android:name=".DisplayExam" />
+        <activity android:name=".View.ExamGenerator" />
+        <activity android:name=".View.DisplayExam" />
         <activity
-            android:name=".CourseEditor"
+            android:name=".View.CourseEditor"
             android:label="Course Editor"
-            android:parentActivityName=".CourseManagement">
+            android:parentActivityName=".View.CourseManagement">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CourseManagement" />
+                android:value=".View.CourseManagement" />
         </activity>
-        <activity android:name=".UpdateUser" />
-        <activity android:name=".UpdateQuestion" />
+        <activity android:name=".View.UpdateUser" />
+        <activity android:name=".View.UpdateQuestion" />
         <activity
-            android:name=".ViewExamDetails"
-            android:parentActivityName=".DisplayExam">
+            android:name=".View.ViewExamDetails"
+            android:parentActivityName=".View.DisplayExam">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayExam" />
+                android:value=".View.DisplayExam" />
         </activity>
         <activity
-            android:name=".ViewCourseDetails"
+            android:name=".View.ViewCourseDetails"
             android:label="@string/title_activity_view_course_details"
-            android:parentActivityName=".CourseManagement">
+            android:parentActivityName=".View.CourseManagement">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="cctt.grad.examgenerator.CourseManagement" />
+                android:value=".View.CourseManagement" />
         </activity>
         <activity
-            android:name=".ViewExamPaper"
+            android:name=".View.ViewExamPaper"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_view_exam_paper"
-            android:parentActivityName=".DisplayExam"
+            android:parentActivityName=".View.DisplayExam"
             android:theme="@style/FullscreenTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="cctt.grad.examgenerator.DisplayExam" />
+                android:value=".View.DisplayExam" />
         </activity>
     </application>
 

@@ -6,8 +6,20 @@
         android:icon="@drawable/pie_chart"
         android:title="View Exam Details"/>
 
-    <item
-        android:id="@+id/regenerate_exam"
-        android:icon="@android:drawable/ic_popup_sync"
-        android:title="Regenerate Exam"/>
+    <group
+        android:id="@+id/pdfExportingLanguage"
+        android:checkableBehavior="single"
+        android:enabled="true">
+
+        <item
+            android:id="@+id/englishPdf"
+            android:title="English Report"
+            android:checkable="true" />
+
+        <item
+            android:id="@+id/arabicPdf"
+            android:title="Arabic Report"
+            android:checkable="true" />
+
+    </group>
 </menu>
