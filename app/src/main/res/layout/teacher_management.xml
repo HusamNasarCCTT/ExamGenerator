@@ -8,32 +8,47 @@
     tools:context=".View.TeacherManagement"
     android:id="@+id/myLayout">
 
-            <EditText
-                android:id="@+id/teacherName"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="5dp"
-                android:hint="Teacher Name"
-                android:gravity="center_horizontal"/>
+                android:id="@+id/teacherNameLayout">
+                <EditText
+                    android:id="@+id/teacherName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="5dp"
+                    android:hint="Teacher Name"
+                    android:gravity="center_horizontal"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/userName"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tUsernameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="User Name"
-                android:gravity="center_horizontal"/>
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="User Name"
+                    android:gravity="center_horizontal"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/passWord"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tPassWordLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:layout_weight="1"
-                android:hint="Password"
-                android:fontFamily="sans-serif"
-                android:gravity="center_horizontal"/>
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/passWord"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:layout_weight="1"
+                    android:hint="Password"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center_horizontal"/>
+            </android.support.design.widget.TextInputLayout>
 
     <ListView
         android:layout_width="match_parent"

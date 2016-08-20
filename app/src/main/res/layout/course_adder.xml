@@ -11,20 +11,28 @@
     tools:context=".View.CourseAdder"
     android:gravity="center_horizontal">
 
-    <EditText
-        android:id="@+id/courseName"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:hint="Course Name"/>
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/courseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:hint="Course Name"/>
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/courseYear"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:inputType="number"
-        android:hint="Year"/>
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/courseYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:hint="Year"/>
+    </android.support.design.widget.TextInputLayout>
 
     <Spinner
         android:id="@+id/courseSemester"

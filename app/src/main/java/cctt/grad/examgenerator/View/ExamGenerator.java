@@ -283,7 +283,6 @@ public class ExamGenerator extends AppCompatActivity {
         intent.putExtra("Course ID", courseId);
         intent.putExtras(examParameters);
         startActivity(intent);
-        finish();
 
     }
 

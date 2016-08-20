@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/customCourseName"
-        android:text="Any text here"
+        android:text=""
         android:gravity="top"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         android:id="@+id/customCourseTerm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Any text here"
+        android:text=""
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/courseIcon"
         android:layout_alignBottom="@id/courseIcon"/>
@@ -32,7 +32,7 @@
         android:id="@+id/customCourseYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Any text here"
+        android:text=""
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_alignBottom="@id/courseIcon"
         android:layout_alignParentRight="true"/>

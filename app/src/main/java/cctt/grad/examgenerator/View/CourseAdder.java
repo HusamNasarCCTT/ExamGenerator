@@ -1,6 +1,7 @@
 package cctt.grad.examgenerator.View;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -55,7 +56,7 @@ public class CourseAdder extends AppCompatActivity {
 
                 if(inputValidator(_courseName, _courseYearString)){
 
-                    if(yearInputValidator(_courseYearString)){
+
                         _courseYear = Integer.parseInt(courseYear.getEditableText().toString());
                         _teacherId = examDbHandler.sessionManager.sharedPreferences.getInt(examDbHandler.sessionManager.KEY_ID, -1);
 
@@ -78,19 +79,34 @@ public class CourseAdder extends AppCompatActivity {
                         }
                         courseName.setText("");
                         courseYear.setText("");
-                    }else
-                        Toast.makeText(CourseAdder.this, "Make sure year is in the 21st century", Toast.LENGTH_SHORT).show();
 
-                }else
-                    Toast.makeText(CourseAdder.this, "Please fill up all fields", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
     }
 
     public boolean inputValidator(String courseName, String courseYear){
-        if(courseName.isEmpty() || courseYear.isEmpty())
+        this.courseName.setError(null);
+        this.courseYear.setError(null);
+
+        if(courseName.isEmpty()){
+            this.courseName.setError("This field is required");
             return false;
+        }
+
+        if(courseYear.isEmpty()){
+            this.courseYear.setError("This field is required");
+            return false;
+        }
+
+        if(! yearInputValidator(courseYear)){
+            this.courseYear.setError("Year must be in 21st century");
+            return false;
+        }
+
         return true;
+
     }
 
     public boolean yearInputValidator(String courseYear){
@@ -112,8 +128,6 @@ public class CourseAdder extends AppCompatActivity {
 
             case android.R.id.home:
 
-                Intent backIntent = new Intent(this, CourseManagement.class);
-                startActivity(backIntent);
                 finish();
                 return true;
 

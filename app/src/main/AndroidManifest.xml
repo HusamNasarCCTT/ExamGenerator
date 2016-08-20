@@ -71,16 +71,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.CourseManagement" />
         </activity>
-        <activity
-            android:name=".View.ViewExamPaper"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_view_exam_paper"
-            android:parentActivityName=".View.DisplayExam"
-            android:theme="@style/FullscreenTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.DisplayExam" />
-        </activity>
         <activity android:name=".View.ExamManagement"></activity>
     </application>
 

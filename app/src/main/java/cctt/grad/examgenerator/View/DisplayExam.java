@@ -438,11 +438,17 @@ public class DisplayExam extends AppCompatActivity {
                         .setAction("Ok", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Snackbar.make(getCurrentFocus(), "Please install a PDF reader to view exam", Snackbar.LENGTH_INDEFINITE)
+                                Snackbar.make(getCurrentFocus(), "Exam has been saved in PDF format in the default directory", Snackbar.LENGTH_INDEFINITE)
                                         .setAction("Ok", new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                return;
+                                                Snackbar.make(getCurrentFocus(), "Please install a PDF reader to view exam", Snackbar.LENGTH_INDEFINITE)
+                                                        .setAction("Ok", new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                return;
+                                                            }
+                                                        }).show();
                                             }
                                         }).show();
                             }
@@ -518,7 +524,11 @@ public class DisplayExam extends AppCompatActivity {
         String examTitle = "إمتحان مادة " +  examDBHandler.getCourseById(exam.get_course()).get_name();
 
         table.addCell(setArCell(examTermInString + " - " + String.valueOf(examYear), PdfPCell.ALIGN_RIGHT, arabicFont));
-        table.addCell(setArCell(String.valueOf(examTitle), PdfPCell.ALIGN_CENTER, mainTitleFont));
+        if(isQuestionEnglish(examTitle))
+            table.addCell(setEnCell(String.valueOf(examTitle), PdfPCell.ALIGN_CENTER, mainTitleFont));
+        else
+            table.addCell(setArCell(String.valueOf(examTitle), PdfPCell.ALIGN_CENTER, mainTitleFont));
+
         table.addCell(setArCell("الزمن: " + String.valueOf(examTime) + " دقيقة", PdfPCell.ALIGN_RIGHT, arabicFont));
         String examInstructions = "أجب على كافة الإسئلة التالية:";
 
@@ -607,7 +617,10 @@ public class DisplayExam extends AppCompatActivity {
         }
 
         table.addCell(setArCell("تمنياتي للجميع بالتوفيق", PdfPCell.ALIGN_RIGHT, arabicFont));
-        table.addCell(setArCell(teacherName, PdfPCell.ALIGN_RIGHT, arabicFont));
+        if(isQuestionEnglish(teacherName))
+            table.addCell(setEnCell(teacherName, PdfPCell.ALIGN_LEFT, generalFont));
+        else
+            table.addCell(setArCell(teacherName, PdfPCell.ALIGN_RIGHT, generalFont));
 
         try {
             _document.add(table);
@@ -658,7 +671,10 @@ public class DisplayExam extends AppCompatActivity {
         String examTitle = examDBHandler.getCourseById(exam.get_course()).get_name() + " Exam";
 
         table.addCell(setEnCell(examTermInString + " - " + String.valueOf(examYear), PdfPCell.ALIGN_RIGHT, generalFont));
-        table.addCell(setEnCell(String.valueOf(examTitle), PdfPCell.ALIGN_CENTER, mainTitleFont));
+        if(isQuestionEnglish(examTitle))
+            table.addCell(setEnCell(String.valueOf(examTitle), PdfPCell.ALIGN_CENTER, mainTitleFont));
+        else
+            table.addCell(setArCell(String.valueOf(examTitle), PdfPCell.ALIGN_CENTER, mainTitleFont));
         table.addCell(setEnCell(String.valueOf(examTime) + " mins", PdfPCell.ALIGN_LEFT, generalFont));
         String examInstructions = "Answer All the following questions:";
 
@@ -746,8 +762,13 @@ public class DisplayExam extends AppCompatActivity {
 
         }
 
+
+
         table.addCell(setEnCell("Best of luck", PdfPCell.ALIGN_RIGHT, generalFont));
-        table.addCell(setEnCell(teacherName, PdfPCell.ALIGN_RIGHT, generalFont));
+        if(isQuestionEnglish(teacherName))
+            table.addCell(setEnCell(teacherName, PdfPCell.ALIGN_RIGHT, generalFont));
+        else
+            table.addCell(setArCell(teacherName, PdfPCell.ALIGN_LEFT, generalFont));
 
         try {
             _document.add(table);

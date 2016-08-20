@@ -11,20 +11,20 @@
     tools:context=".View.CourseEditor"
     android:gravity="center_horizontal">
 
-    <EditText
-        android:id="@+id/courseNameEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:hint="Course Name"/>
+        <EditText
+            android:id="@+id/courseNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:hint="Course Name"/>
 
-    <EditText
-        android:id="@+id/courseYearEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:inputType="number"
-        android:hint="Year"/>
+        <EditText
+            android:id="@+id/courseYearEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:hint="Year"/>
 
     <Spinner
         android:id="@+id/courseSemesterEdit"

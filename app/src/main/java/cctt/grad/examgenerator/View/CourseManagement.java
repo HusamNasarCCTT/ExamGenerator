@@ -246,7 +246,13 @@ public class CourseManagement extends AppCompatActivity {
                 Bundle bundle = (Bundle) courseList.getItemAtPosition(0);
                 final int courseId = bundle.getInt("Course ID", -1);
                 if(courseId <= 0){
-                    Toast.makeText(this, "There are no courses, you IDIOT!!!", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getCurrentFocus(), "Course list is already empty", Snackbar.LENGTH_SHORT)
+                            .setAction("Ok", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    return;
+                                }
+                            }).show();
                 }else{
                     Snackbar.make(getCurrentFocus(), "Are you sure?", Snackbar.LENGTH_SHORT)
                             .setAction("Yes", new View.OnClickListener() {

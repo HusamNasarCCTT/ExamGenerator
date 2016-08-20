@@ -44,8 +44,11 @@ public class CustomCourseAdapter extends ArrayAdapter<Bundle> {
 
         courseIcon.setImageResource(R.drawable.course_icon);
         courseName.setText(singleCourseName);
-        courseYear.setText(String.valueOf(singleCourseYear));
-        courseTerm.setText(getTermByInt(singleCourseTerm));
+        if(singleCourseId > 0){
+            courseYear.setText(String.valueOf(singleCourseYear));
+            courseTerm.setText(getTermByInt(singleCourseTerm));
+        }
+
 
         return customRow;
     }

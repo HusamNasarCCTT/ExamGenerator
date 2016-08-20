@@ -3,6 +3,7 @@ package cctt.grad.examgenerator.View;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -36,6 +37,7 @@ public class TeacherManagement extends AppCompatActivity {
     private ListView teacherList = null;
     private ExamDBHandler examDBHandler = null;
     private SessionManager sessionManager = null;
+    private TextInputLayout teacherNameLayout = null, tUsernameLayout = null, tPassWordLayout = null;
     private int teacherId;
     private String username = null;
 
@@ -53,6 +55,9 @@ public class TeacherManagement extends AppCompatActivity {
         passWord = (EditText) findViewById(R.id.passWord);
         teacherAdder = (Button) findViewById(R.id.teacherAdder);
         teacherList = (ListView) findViewById(R.id.teacherList);
+        teacherNameLayout = (TextInputLayout) findViewById(R.id.teacherNameLayout);
+        tUsernameLayout = (TextInputLayout) findViewById(R.id.tUsernameLayout);
+        tPassWordLayout = (TextInputLayout) findViewById(R.id.tPassWordLayout);
 
         examDBHandler = new ExamDBHandler(this, null, null, 1);
         sessionManager = new SessionManager(getApplicationContext());
@@ -161,12 +166,17 @@ public class TeacherManagement extends AppCompatActivity {
 
     public void add(String _tName, String _uName, String _pWord){
 
-        userName.setError(null);
+        teacherNameLayout.setError(null);
+        tUsernameLayout.setError(null);
+        tPassWordLayout.setError(null);
         Teacher teacher = new Teacher(_tName, _uName, _pWord, true, 0);
         if(examDBHandler.addTeacher(teacher)){
             teacherAddedSuccessfullyToast().show();
+            teacherName.setText("");
+            userName.setText("");
+            passWord.setText("");
         }else{
-            userName.setError("Username already taken");
+            tUsernameLayout.setError("Username already taken");
         }
 
         if(username.matches("admin")){
@@ -176,23 +186,31 @@ public class TeacherManagement extends AppCompatActivity {
 
     public boolean inputValidator(String _tName, String _uName, String _pWord){
 
+        teacherNameLayout.setError(null);
+        tUsernameLayout.setError(null);
+        tPassWordLayout.setError(null);
         if(_tName.isEmpty()){
-            teacherName.setError("This field is required");
+            teacherNameLayout.setError("This field is required");
             return false;
         }
 
         if(_tName.length() > 18){
-            teacherName.setError("Name too long\nMaximum Character set is 18");
+            teacherNameLayout.setError("Name too long\nMaximum Character set is 18");
             return false;
         }
 
         if(_uName.isEmpty()){
-            userName.setError("This field is required");
+            tUsernameLayout.setError("This field is required");
             return false;
         }
 
         if(_pWord.isEmpty()){
-            passWord.setError("This field is required");
+            tPassWordLayout.setError("This field is required");
+            return false;
+        }
+
+        if(_pWord.length() < 6 || _pWord.length() > 32){
+            tPassWordLayout.setError("Password must be between 6 and 32 characters in length");
             return false;
         }
 

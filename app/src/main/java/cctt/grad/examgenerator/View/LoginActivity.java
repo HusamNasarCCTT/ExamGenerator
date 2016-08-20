@@ -2,6 +2,7 @@ package cctt.grad.examgenerator.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private ExamDBHandler examDBHandler = null;
     private EditText loginUserName, loginPassWord = null;
     private Button loginButton, registerButton = null;
+    private TextInputLayout userNameLayout = null, passWordLayout = null;
     SessionManager sessionManager = null;
 
 
@@ -35,6 +37,9 @@ public class LoginActivity extends AppCompatActivity {
         loginPassWord = (EditText) findViewById(R.id.loginPassWord);
         loginButton = (Button) findViewById(R.id.loginButton);
         registerButton = (Button) findViewById(R.id.registerButton);
+        userNameLayout = (TextInputLayout) findViewById(R.id.userNameLayout);
+        passWordLayout = (TextInputLayout) findViewById(R.id.passWordLayout);
+
 
         //DB Handler Initialization...
         examDBHandler = new ExamDBHandler(this, null, null, 1);
@@ -89,16 +94,18 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean loginInputValidator(String userName, String passWord){
 
+        userNameLayout.setError(null);
+        passWordLayout.setError(null);
         loginUserName.setError(null);
         loginPassWord.setError(null);
 
 
         if(userName.isEmpty()){
-            loginUserName.setError("This field is required");
+            userNameLayout.setError("This field is required");
             return false;
         }
         if(passWord.isEmpty()){
-            loginPassWord.setError("This field is also required");
+            passWordLayout.setError("This field is also required");
             return false;
         }
 
