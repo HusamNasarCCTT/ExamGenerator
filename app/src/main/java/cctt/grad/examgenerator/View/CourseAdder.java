@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cctt.grad.examgenerator.Presenter.ExamDBHandler;
 import cctt.grad.examgenerator.Model.Class;
@@ -110,6 +111,9 @@ public class CourseAdder extends AppCompatActivity {
     }
 
     public boolean yearInputValidator(String courseYear){
+
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        // String currentYear = simpleDateFormat.format(new Date());
 
         if(courseYear.startsWith("20") && courseYear.length() == 4)
             return true;

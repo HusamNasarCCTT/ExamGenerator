@@ -1,6 +1,8 @@
 package cctt.grad.examgenerator.View;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,7 @@ public class CourseManagement extends AppCompatActivity {
     private SessionManager sessionManager = null;
     private int teacherId = 0;
     private String teacherName = null;
+    private ProgressBar deleteAllCoursesProgressBar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +58,14 @@ public class CourseManagement extends AppCompatActivity {
         teacherId = sessionManager.sharedPreferences.getInt("ID", -1);
 
         //Get Teacher Name for Action Bar...
-        teacherName = examDbHandler.getTeacherName(teacherId);
+        teacherName = examDbHandler.getTeacher(teacherId).get_name();
         setTitle(teacherName);
 
         //Widget Initialization...
         addCourses = (Button) findViewById(R.id.addCourses);
         courseList = (ListView) findViewById(R.id.courseList);
         courseManagementAssistButton = (FloatingActionButton) findViewById(R.id.courseManagementAssistButton);
+        deleteAllCoursesProgressBar = (ProgressBar) findViewById(R.id.deleteAllCoursesProgressBar);
         courseList.setFocusable(true);
 
         courseList.setAdapter(getCourseListAdapter());
@@ -258,8 +263,25 @@ public class CourseManagement extends AppCompatActivity {
                             .setAction("Yes", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    examDbHandler.deleteAllCourses(teacherId);
-                                    courseList.setAdapter(getCourseListAdapter());
+
+                                    final Handler h = new Handler(){
+                                        @Override
+                                        public void handleMessage(Message msg) {
+                                            deleteAllCoursesProgressBar.setVisibility(View.GONE);
+                                            courseList.setAdapter(getCourseListAdapter());
+                                            courseDeletedSuccessfullyToast().show();
+                                        }
+                                    };
+                                    Runnable deleteRunnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            examDbHandler.deleteAllCourses(teacherId);
+                                            h.sendEmptyMessage(0);
+                                        }
+                                    };
+                                    deleteAllCoursesProgressBar.setVisibility(View.VISIBLE);
+                                    Thread deleteThread = new Thread(deleteRunnable);
+                                    deleteThread.start();
                                 }
                             }).show();
                 }

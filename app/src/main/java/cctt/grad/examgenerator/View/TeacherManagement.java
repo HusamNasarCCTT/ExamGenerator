@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,16 +36,18 @@ public class TeacherManagement extends AppCompatActivity {
     private EditText passWord = null;
     private Button teacherAdder = null;
     private ListView teacherList = null;
+    private ProgressBar deleteAllTeachersProgressBar = null;
     private ExamDBHandler examDBHandler = null;
     private SessionManager sessionManager = null;
     private TextInputLayout teacherNameLayout = null, tUsernameLayout = null, tPassWordLayout = null;
     private int teacherId;
+    private Teacher teacher = null;
     private String username = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_management);
+        setContentView(R.layout.teacher_management_coordinator);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -55,6 +58,7 @@ public class TeacherManagement extends AppCompatActivity {
         passWord = (EditText) findViewById(R.id.passWord);
         teacherAdder = (Button) findViewById(R.id.teacherAdder);
         teacherList = (ListView) findViewById(R.id.teacherList);
+        deleteAllTeachersProgressBar = (ProgressBar) findViewById(R.id.deleteTeacherProgressBar);
         teacherNameLayout = (TextInputLayout) findViewById(R.id.teacherNameLayout);
         tUsernameLayout = (TextInputLayout) findViewById(R.id.tUsernameLayout);
         tPassWordLayout = (TextInputLayout) findViewById(R.id.tPassWordLayout);
@@ -64,11 +68,12 @@ public class TeacherManagement extends AppCompatActivity {
 
         //Teacher ID...
         teacherId = sessionManager.sharedPreferences.getInt(sessionManager.KEY_ID, -1);
+        teacher = examDBHandler.getTeacher(teacherId);
 
         //Defining user permissions for activity by Username...
         username = sessionManager.sharedPreferences.getString(sessionManager.KEY_USERNAME, "null");
 
-        if(! username.matches("admin")){
+        if(teacher.get_type() != 1){
             setTitle("Create Account");
             teacherList.setVisibility(View.GONE);
             teacherAdder.setText("Register");
@@ -107,55 +112,10 @@ public class TeacherManagement extends AppCompatActivity {
     }
 
     public ListAdapter getTeacherAdapter(){
-        Vector<Bundle> teacherList = examDBHandler.readteacher();
+        Vector<Bundle> teacherList = examDBHandler.readTeacher();
         ListAdapter teacherAdapter = new CustomTeacherAdapter(this, teacherList);
 
         return teacherAdapter;
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.delete_only_context_menu, menu);
-
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
-        int selectedItem = info.position;
-        Bundle bundle = (Bundle) teacherList.getItemAtPosition(selectedItem);
-        final int teacherId = bundle.getInt("Teacher Id");
-
-        switch (item.getItemId()){
-
-            case R.id.deleteOnly:{
-
-                if(teacherId>0){
-                    Snackbar.make(getCurrentFocus(), "Are you sure?", Snackbar.LENGTH_LONG)
-                            .setAction("Yes", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    examDBHandler.removeTeacher(teacherId);
-                                    teacherList.setAdapter(getTeacherAdapter());
-                                    teacherDeletedSuccessfullyToast().show();
-                                }
-                            }).show();
-                }else{
-                    Snackbar.make(getCurrentFocus(), "Teacher list is empty", Snackbar.LENGTH_LONG)
-                            .setAction("Ok", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    return;
-                                }
-                            }).show();
-                }
-            }
-        }
-        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -215,6 +175,67 @@ public class TeacherManagement extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.delete_only_context_menu, menu);
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        int selectedItem = info.position;
+        Bundle bundle = (Bundle) teacherList.getItemAtPosition(selectedItem);
+        final int teacherId = bundle.getInt("Teacher Id");
+
+        switch (item.getItemId()){
+
+            case R.id.deleteOnly:{
+
+                if(teacherId>0){
+                    Snackbar.make(getCurrentFocus(), "Are you sure?", Snackbar.LENGTH_LONG)
+                            .setAction("Yes", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    final Handler h = new Handler(){
+                                        @Override
+                                        public void handleMessage(Message msg) {
+                                            deleteAllTeachersProgressBar.setVisibility(View.GONE);
+                                            teacherList.setAdapter(getTeacherAdapter());
+                                            teacherDeletedSuccessfullyToast().show();
+                                        }
+                                    };
+                                    Runnable deleteRunnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            examDBHandler.removeTeacher(teacherId);
+                                            h.sendEmptyMessage(0);
+                                        }
+                                    };
+                                    deleteAllTeachersProgressBar.setVisibility(View.VISIBLE);
+                                    Thread deleteThread = new Thread(deleteRunnable);
+                                    deleteThread.start();
+                                }
+                            }).show();
+                }else{
+                    Snackbar.make(getCurrentFocus(), "Teacher list is empty", Snackbar.LENGTH_LONG)
+                            .setAction("Ok", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    return;
+                                }
+                            }).show();
+                }
+            }
+        }
+        return super.onContextItemSelected(item);
     }
 
     @Override

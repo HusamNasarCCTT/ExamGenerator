@@ -150,11 +150,23 @@ public class QuestionManagement extends AppCompatActivity {
         popupAssistor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(findViewById(R.id.fabFrameLayout), "Tap Actionbar for more options", Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(getCurrentFocus(), "Tap the \"+\" button to add a question to this course", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Ok", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                return;
+                                Snackbar.make(getCurrentFocus(), "Tap the \"Gear\" to generate an exam for this course", Snackbar.LENGTH_INDEFINITE)
+                                        .setAction("Ok", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Snackbar.make(getCurrentFocus(), "Tap the Options button on the Action bar for more options", Snackbar.LENGTH_INDEFINITE)
+                                                        .setAction("Ok", new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                return;
+                                                            }
+                                                        }).show();
+                                            }
+                                        }).show();
                             }
                         }).show();
             }

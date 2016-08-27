@@ -77,9 +77,6 @@ public class DisplayExam extends AppCompatActivity {
 
     private boolean FAB_Status = false;
 
-    private final String englishAlphabetPattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private final String standardArabicAlphabetPattern = "أبتثجحخدذرزسشصضطظعغفقكلمنهوي";
-    private final String complementArabicAlphabetPattern = "";
 
     private String pdfFileDirectory = null;
 
@@ -266,7 +263,6 @@ public class DisplayExam extends AppCompatActivity {
 
     }
 
-
     public void generateExamByDifficulty(){
 
         exam = new Exam();
@@ -391,7 +387,7 @@ public class DisplayExam extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyhhmmss");
 
         courseName = examDBHandler.getCourseById(_exam.get_course()).get_name();
-        teacherName = examDBHandler.getTeacherName(exam.get_teacher());
+        teacherName = examDBHandler.getTeacher(exam.get_teacher()).get_name();
 
         String pdfName = courseName + "_EXAM_" + sdf.format(Calendar.getInstance().getTime()) + ".pdf";
 
@@ -415,14 +411,6 @@ public class DisplayExam extends AppCompatActivity {
             document.close();
 
             pdfWriter.close();
-
-            //Navigate to PDFViewer Activity...
-            /*
-            Intent toPrintExam = new Intent(this, ViewExamPaper.class);
-            String pdfPath = file.getAbsolutePath();
-            toPrintExam.putExtra("PDF Path", pdfPath);
-            Toast.makeText(DisplayExam.this, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-            startActivity(toPrintExam);*/
 
             //Open file with PDF Reader if one should exist...
             Intent intent = new Intent(Intent.ACTION_VIEW,
@@ -510,7 +498,7 @@ public class DisplayExam extends AppCompatActivity {
         int examTerm = examDBHandler.readClass(examDBHandler.getCourseById(exam.get_course()).get_courseClass()).get_term();
         int examYear = examDBHandler.readClass(examDBHandler.getCourseById(exam.get_course()).get_courseClass()).get_year();
 
-        String teacherName = examDBHandler.getTeacherName(exam.get_teacher());
+        String teacherName = examDBHandler.getTeacher(exam.get_teacher()).get_name();
         String examTermInString;
         switch (examTerm){
             case 0:
@@ -657,7 +645,7 @@ public class DisplayExam extends AppCompatActivity {
         int examTerm = examDBHandler.readClass(examDBHandler.getCourseById(exam.get_course()).get_courseClass()).get_term();
         int examYear = examDBHandler.readClass(examDBHandler.getCourseById(exam.get_course()).get_courseClass()).get_year();
 
-        String teacherName = examDBHandler.getTeacherName(exam.get_teacher());
+        String teacherName = examDBHandler.getTeacher(exam.get_teacher()).get_name();
         String examTermInString;
         switch (examTerm){
             case 0:
@@ -799,7 +787,8 @@ public class DisplayExam extends AppCompatActivity {
 
         char firstCharacter = question.charAt(0);
 
-        if( ( (int) firstCharacter >=65 ) && ( (int) firstCharacter < 65 + 26 ) ){
+
+        if( ( (firstCharacter >=65 ) && (firstCharacter < (65 + 26) ) ) || ( (firstCharacter >=97 ) && (firstCharacter < (97 + 26) ) ) ){
             return true;
         }
         return false;

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import java.util.Random;
@@ -93,6 +94,7 @@ public class ExamDBHandler extends SQLiteOpenHelper {
     public final String KEY_TEACHER_USERNAME = "Username";
     public final String KEY_TEACHER_PASSWORD = "Password";
     public final String KEY_TEACHER_STATE = "State";
+    public final String KEY_TEACHER_TYPE = "Type";
 
     //Keys for Choice List Bundle
     public final String KEY_CHOICE_ID = "Choice Id";
@@ -117,9 +119,6 @@ public class ExamDBHandler extends SQLiteOpenHelper {
     public final float PRACTICAL_MCQ_DIFF_POINTS = 1;
     public final float THEORY_ESSAY_DIFF_POINTS = 2;
     public final float PRACTICAL_ESSAY_DIFF_POINTS = 3;
-
-    //For testing means...
-    public Vector<Bundle> questions;
 
 
     public ExamDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -199,6 +198,7 @@ public class ExamDBHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_TEACHER, null, adminValues);
 
+
     }
 
     @Override
@@ -245,18 +245,25 @@ public class ExamDBHandler extends SQLiteOpenHelper {
         return teacherId;
     }
 
-    public String getTeacherName(int teacherId){
+    public Teacher getTeacher(int teacherId){
 
-        String teacherName = null;
+        Teacher teacher = new Teacher();
         SQLiteDatabase db = getWritableDatabase();
 
-        String query = "SELECT " + COLUMN_TEACHER_NAME + " FROM " + TABLE_TEACHER + " WHERE ("
+        String query = "SELECT " + "*" + " FROM " + TABLE_TEACHER + " WHERE ("
                      + COLUMN_TEACHER_ID + " = " + teacherId + ");";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-            teacherName = cursor.getString(cursor.getColumnIndex(COLUMN_TEACHER_NAME));
+        if(! cursor.isBeforeFirst() || ! cursor.isAfterLast()){
+            teacher.set_id(teacherId);
+            teacher.set_name(cursor.getString(cursor.getColumnIndex(COLUMN_TEACHER_NAME)));
+            teacher.set_username(cursor.getString(cursor.getColumnIndex(COLUMN_TEACHER_USERNAME)));
+            teacher.set_password(cursor.getString(cursor.getColumnIndex(COLUMN_TEACHER_PASSWORD)));
+            teacher.set_type(cursor.getInt(cursor.getColumnIndex(COLUMN_TEACHER_TYPE)));
+        }
+        cursor.close();
         db.close();
-        return teacherName;
+        return teacher;
     }
 
     public int getClassIdOrCreateClassId(Context _context, int courseYear, int classSemester){
@@ -431,6 +438,26 @@ public class ExamDBHandler extends SQLiteOpenHelper {
         String whereClause = COLUMN_COURSE_ID + "=" + course.get_id();
         db.update(TABLE_COURSE, values, whereClause, null);
         db.close();
+    }
+
+    public void migrateCourse(Course course){
+
+        String query = "SELECT " + COLUMN_COURSE_ID + ", " + COLUMN_COURSE_CLASS + " FROM " + TABLE_COURSE + " WHERE (" + COLUMN_COURSE_ID + "=" + course.get_courseClass() + ");";
+        String oldClassQuery = "SELECT " + "*" + " FROM " + TABLE_CLASS + " WHERE (" + COLUMN_CLASS_ID + "=" + course.get_courseClass() + ");";
+
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor courseClassCursor = db.rawQuery(query, null);
+        Cursor classDetailCursor = db.rawQuery(oldClassQuery, null);
+
+        int courseId = courseClassCursor.getInt(courseClassCursor.getColumnIndex(COLUMN_COURSE_ID));
+        int oldClassId = courseClassCursor.getInt(courseClassCursor.getColumnIndex(COLUMN_COURSE_CLASS));
+
+        //Getting old class data in order to calculate new data and update it...
+        Class currentClass = new Class();
+        currentClass.set_id(oldClassId);
+        //currentClass.set_term();
+
+
     }
 
     public void addQuestion(Question question){
@@ -615,7 +642,7 @@ public class ExamDBHandler extends SQLiteOpenHelper {
 
     }
 
-    public Vector<Bundle> readteacher(){
+    public Vector<Bundle> readTeacher(){
             Vector<Bundle> teacherList = new Vector<>();
             SQLiteDatabase db = getWritableDatabase();
 
@@ -630,12 +657,14 @@ public class ExamDBHandler extends SQLiteOpenHelper {
                     String userName = cursor.getString(cursor.getColumnIndex(COLUMN_TEACHER_USERNAME));
                     String passWord = cursor.getString(cursor.getColumnIndex(COLUMN_TEACHER_PASSWORD));
                     int teacherState = cursor.getInt(cursor.getColumnIndex(COLUMN_TEACHER_STATE));
+                    int teacherType = cursor.getInt(cursor.getColumnIndex(COLUMN_TEACHER_TYPE));
                     Bundle bundle = new Bundle();
                     bundle.putInt(KEY_TEACHER_ID, teacherId);
                     bundle.putString(KEY_TEACHER_NAME, teacherName);
                     bundle.putString(KEY_TEACHER_USERNAME, userName);
                     bundle.putString(KEY_TEACHER_PASSWORD, passWord);
                     bundle.putInt(KEY_TEACHER_STATE, teacherState);
+                    bundle.putInt(KEY_TEACHER_TYPE, teacherType);
                     teacherList.add(bundle);
                     cursor.moveToNext();
                 }

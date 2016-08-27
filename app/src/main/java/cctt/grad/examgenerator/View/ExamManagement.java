@@ -60,7 +60,7 @@ public class ExamManagement extends AppCompatActivity {
         teacherId = sessionManager.sharedPreferences.getInt("ID", 0);
         courseId = getIntent().getExtras().getInt("Course ID");
 
-        teacherName = examDBHandler.getTeacherName(teacherId);
+        teacherName = examDBHandler.getTeacher(teacherId).get_name();
         courseName = examDBHandler.getCourseById(courseId).get_name();
 
         //Setting Actionbar title...
@@ -208,6 +208,7 @@ public class ExamManagement extends AppCompatActivity {
         File file = new File(examDirectory);
 
         return file.delete();
+
     }
 
     @Override
