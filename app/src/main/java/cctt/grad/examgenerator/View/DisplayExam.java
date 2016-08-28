@@ -1,8 +1,11 @@
 package cctt.grad.examgenerator.View;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -36,6 +39,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.Vector;
 
 import cctt.grad.examgenerator.Presenter.ExamDBHandler;
@@ -43,6 +47,7 @@ import cctt.grad.examgenerator.Presenter.SessionManager;
 import cctt.grad.examgenerator.Model.Choice;
 import cctt.grad.examgenerator.Model.Exam;
 import cctt.grad.examgenerator.Model.Question;
+import cctt.grad.examgenerator.Utilities.ShakeDetector;
 import cctt.grad.examgenerator.R;
 
 public class DisplayExam extends AppCompatActivity {
@@ -76,6 +81,11 @@ public class DisplayExam extends AppCompatActivity {
     Animation hide_regenerateButton;
 
     private boolean FAB_Status = false;
+
+    // The following are used for the shake detection
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
 
 
     private String pdfFileDirectory = null;
@@ -183,14 +193,7 @@ public class DisplayExam extends AppCompatActivity {
                     default:
                         Toast.makeText(DisplayExam.this, "Something's wrong, Pato;", Toast.LENGTH_SHORT).show();
                 }
-                /*Snackbar.make(findViewById(R.id.displayExamCoordinator), "Exam Generated Successfully", Snackbar.LENGTH_SHORT)
-                        .setAction("OK", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                return;
-                            }
-                        }).show();*/
-                //examGeneratedSuccessfullyToast().show();
+
             }
         });
 
@@ -247,11 +250,17 @@ public class DisplayExam extends AppCompatActivity {
                                         .setAction("OK", new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                Snackbar.make(getCurrentFocus(), "Tap the Actionbar options menu to View Exam Details", Snackbar.LENGTH_INDEFINITE)
+                                                Snackbar.make(getCurrentFocus(), "Shake your phone to shuffle the question list", Snackbar.LENGTH_INDEFINITE)
                                                         .setAction("OK", new View.OnClickListener() {
                                                             @Override
                                                             public void onClick(View v) {
-                                                                return;
+                                                                Snackbar.make(getCurrentFocus(), "Tap the Actionbar options menu to View Exam Details", Snackbar.LENGTH_INDEFINITE)
+                                                                        .setAction("OK", new View.OnClickListener() {
+                                                                            @Override
+                                                                            public void onClick(View v) {
+                                                                                return;
+                                                                            }
+                                                                        }).show();
                                                             }
                                                         }).show();
                                             }
@@ -261,6 +270,37 @@ public class DisplayExam extends AppCompatActivity {
             }
         });
 
+
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+
+                //Stub method to use whenever a shake event is registered...
+                handleShakeEvent(count);
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 
     public void generateExamByDifficulty(){
@@ -378,6 +418,38 @@ public class DisplayExam extends AppCompatActivity {
         }
 
         return vector;
+    }
+
+    public Exam shuffleExamQuestions(Exam _exam){
+
+        if(_exam.get_noOfQuestions() > 0){
+            //Initialize 2 Question vectors to shuffle old question list into the new one...
+            Vector <Question> oldQuestionList = _exam.get_questionList();
+            Vector <Question> newQuestionList = new Vector<>();
+
+            //Select random questions from old list and put them in a new one...
+            Random random = new Random();
+            while (! oldQuestionList.isEmpty()){
+
+                int selectedQuestion = random.nextInt(oldQuestionList.size());
+                newQuestionList.add(oldQuestionList.get(selectedQuestion));
+                oldQuestionList.remove(selectedQuestion);
+
+            }
+            _exam.set_questionList(newQuestionList);
+
+            //Update Question ListView with new question list...
+            questionListView.setAdapter(new CustomQuestionAdapter2(this, questionVectorToBundleVector(_exam.get_questionList())));
+            examShuffledToast().show();
+        }else{
+            examCouldntBeShuffledToast().show();
+        }
+
+        return _exam;
+    }
+
+    public void handleShakeEvent(int count){
+        shuffleExamQuestions(exam);
     }
 
     public void printExam(Exam _exam){
@@ -820,6 +892,29 @@ public class DisplayExam extends AppCompatActivity {
     public Toast examCouldntBeGeneratedToast(){
         Toast toast = Toast.makeText(this, "No exam to view, as questions " +
                 "with the requested parameters do not exist", Toast.LENGTH_SHORT);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.exam_fail, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+    public Toast examShuffledToast(){
+        Toast toast = Toast.makeText(this, "Exam Shuffled Successfully", Toast.LENGTH_SHORT);
+        TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastText.setGravity(Gravity.CENTER);
+        if(toastText != null){
+            toastText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.exam_success, 0, 0, 0);
+        }
+
+        return toast;
+    }
+
+    public Toast examCouldntBeShuffledToast(){
+        Toast toast = Toast.makeText(this, "Question list is empty, " +
+                "therefore, exam can't be shuffled", Toast.LENGTH_SHORT);
         TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
         toastText.setGravity(Gravity.CENTER);
         if(toastText != null){

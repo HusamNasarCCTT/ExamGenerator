@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.Vector;
 
+import cctt.grad.examgenerator.Model.Question;
 import cctt.grad.examgenerator.Presenter.ExamDBHandler;
 import cctt.grad.examgenerator.Model.Course;
 import cctt.grad.examgenerator.R;
@@ -103,6 +104,7 @@ public class QuestionManagement extends AppCompatActivity {
         addQuestions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 intent = new Intent(new Intent(QuestionManagement.this, QuestionAdder.class));
                 intent.putExtra("Course ID", courseId);
                 intent.putExtra("Course Name", courseName);
@@ -162,7 +164,7 @@ public class QuestionManagement extends AppCompatActivity {
                                                         .setAction("Ok", new View.OnClickListener() {
                                                             @Override
                                                             public void onClick(View v) {
-                                                                return;
+
                                                             }
                                                         }).show();
                                             }
@@ -318,7 +320,6 @@ public class QuestionManagement extends AppCompatActivity {
                             .setAction("OK", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    return;
                                 }
                             }).show();
                 }
@@ -341,7 +342,7 @@ public class QuestionManagement extends AppCompatActivity {
                             .setAction("OK", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    return;
+
                                 }
                             }).show();
                 }
@@ -392,7 +393,7 @@ public class QuestionManagement extends AppCompatActivity {
                             .setAction("Cool 😎", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    return;
+
                                 }
                             }).show();
                 }else{

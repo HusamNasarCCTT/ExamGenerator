@@ -440,26 +440,6 @@ public class ExamDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void migrateCourse(Course course){
-
-        String query = "SELECT " + COLUMN_COURSE_ID + ", " + COLUMN_COURSE_CLASS + " FROM " + TABLE_COURSE + " WHERE (" + COLUMN_COURSE_ID + "=" + course.get_courseClass() + ");";
-        String oldClassQuery = "SELECT " + "*" + " FROM " + TABLE_CLASS + " WHERE (" + COLUMN_CLASS_ID + "=" + course.get_courseClass() + ");";
-
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor courseClassCursor = db.rawQuery(query, null);
-        Cursor classDetailCursor = db.rawQuery(oldClassQuery, null);
-
-        int courseId = courseClassCursor.getInt(courseClassCursor.getColumnIndex(COLUMN_COURSE_ID));
-        int oldClassId = courseClassCursor.getInt(courseClassCursor.getColumnIndex(COLUMN_COURSE_CLASS));
-
-        //Getting old class data in order to calculate new data and update it...
-        Class currentClass = new Class();
-        currentClass.set_id(oldClassId);
-        //currentClass.set_term();
-
-
-    }
-
     public void addQuestion(Question question){
 
         ContentValues values = new ContentValues();

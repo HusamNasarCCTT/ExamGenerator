@@ -5,6 +5,9 @@
     <!-- >In order to write PDF File to SD Card< -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-->In order to have permission to access the accelerometer <-->
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

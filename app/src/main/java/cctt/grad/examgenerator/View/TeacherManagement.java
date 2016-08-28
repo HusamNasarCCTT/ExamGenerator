@@ -2,6 +2,7 @@ package cctt.grad.examgenerator.View;
 
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,7 @@ public class TeacherManagement extends AppCompatActivity {
     private ExamDBHandler examDBHandler = null;
     private SessionManager sessionManager = null;
     private TextInputLayout teacherNameLayout = null, tUsernameLayout = null, tPassWordLayout = null;
+    private FloatingActionButton teacherManagementAssistButton = null;
     private int teacherId;
     private Teacher teacher = null;
     private String username = null;
@@ -62,6 +64,7 @@ public class TeacherManagement extends AppCompatActivity {
         teacherNameLayout = (TextInputLayout) findViewById(R.id.teacherNameLayout);
         tUsernameLayout = (TextInputLayout) findViewById(R.id.tUsernameLayout);
         tPassWordLayout = (TextInputLayout) findViewById(R.id.tPassWordLayout);
+        teacherManagementAssistButton = (FloatingActionButton) findViewById(R.id.teacherManagementAssistButton);
 
         examDBHandler = new ExamDBHandler(this, null, null, 1);
         sessionManager = new SessionManager(getApplicationContext());
@@ -107,6 +110,25 @@ public class TeacherManagement extends AppCompatActivity {
                 //else
                     //Toast.makeText(TeacherManagement.this, "Please fill up all fields", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        teacherManagementAssistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(getCurrentFocus(), "If you are an existing user, tap \"Login\"", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Ok", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Snackbar.make(getCurrentFocus(), "Otherwise, create a new account by tapping \"Register\"", Snackbar.LENGTH_INDEFINITE)
+                                        .setAction("Ok", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                return;
+                                            }
+                                        }).show();
+                            }
+                        }).show();
             }
         });
     }
@@ -219,6 +241,7 @@ public class TeacherManagement extends AppCompatActivity {
                                             h.sendEmptyMessage(0);
                                         }
                                     };
+
                                     deleteAllTeachersProgressBar.setVisibility(View.VISIBLE);
                                     Thread deleteThread = new Thread(deleteRunnable);
                                     deleteThread.start();
