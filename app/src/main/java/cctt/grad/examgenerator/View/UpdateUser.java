@@ -134,12 +134,12 @@ public class UpdateUser extends AppCompatActivity {
         if(newUsernameEdit.getText().toString().isEmpty())
             newUserName = oldUsername;
         else
-            newUserName = usernameEdit.getText().toString();
+            newUserName = newUsernameEdit.getText().toString();
 
         if(newPasswordEdit.getText().toString().isEmpty())
             newPassword = oldPassword;
         else
-            newPassword = passwordEdit.getText().toString();
+            newPassword = newPasswordEdit.getText().toString();
 
         Teacher teacher = new Teacher();
         teacher.set_id(teacherID);
@@ -147,10 +147,6 @@ public class UpdateUser extends AppCompatActivity {
         teacher.set_password(newPassword);
 
         examDBHandler.updateTeacher(teacher);
-    }
-
-    public void updateLoginCredentials(){
-
     }
 
     @Override

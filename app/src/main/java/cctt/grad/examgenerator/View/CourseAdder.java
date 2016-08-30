@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cctt.grad.examgenerator.Model.Teacher;
 import cctt.grad.examgenerator.Presenter.ExamDBHandler;
 import cctt.grad.examgenerator.Model.Class;
 import cctt.grad.examgenerator.Model.Course;
@@ -45,6 +46,8 @@ public class CourseAdder extends AppCompatActivity {
 
         //DB Handler Initialization...
         examDbHandler = new ExamDBHandler(this, null, null, 1);
+        Teacher newTeacher = new Teacher();
+
 
         addCourse.setOnClickListener(new View.OnClickListener() {
             @Override

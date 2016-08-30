@@ -422,7 +422,7 @@ public class DisplayExam extends AppCompatActivity {
 
     public Exam shuffleExamQuestions(Exam _exam){
 
-        if(_exam.get_noOfQuestions() > 0){
+        if(_exam.get_questionList() != null){
             //Initialize 2 Question vectors to shuffle old question list into the new one...
             Vector <Question> oldQuestionList = _exam.get_questionList();
             Vector <Question> newQuestionList = new Vector<>();

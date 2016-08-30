@@ -65,10 +65,16 @@ public class CourseEditor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String newCourseYear;
+                if(courseYearField.getText().toString().isEmpty())
+                    newCourseYear = courseYearField.getHint().toString();
+                else
+                    newCourseYear = courseYearField.getText().toString();
+
                 if(inputValidator(courseNameField.getText().toString(), courseYearField.getText().toString(), courseTermSpinner.getSelectedItem().toString())){
                     Toast.makeText(CourseEditor.this, "Change at least one parameter", Toast.LENGTH_SHORT).show();
                 }else{
-                    if(courseYearValidator(courseYearField.getText().toString())){
+                    if(courseYearValidator(newCourseYear)){
                         updateCourse();
                         courseUpdatedSuccessfullyToast().show();
                         finish();
