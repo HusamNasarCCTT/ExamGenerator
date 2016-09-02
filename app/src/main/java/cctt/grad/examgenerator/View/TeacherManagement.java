@@ -151,7 +151,9 @@ public class TeacherManagement extends AppCompatActivity {
         teacherNameLayout.setError(null);
         tUsernameLayout.setError(null);
         tPassWordLayout.setError(null);
+
         Teacher teacher = new Teacher(_tName, _uName, _pWord, true, 0);
+
         if(examDBHandler.addTeacher(teacher)){
             teacherAddedSuccessfullyToast().show();
             teacherName.setText("");
@@ -171,6 +173,7 @@ public class TeacherManagement extends AppCompatActivity {
         teacherNameLayout.setError(null);
         tUsernameLayout.setError(null);
         tPassWordLayout.setError(null);
+
         if(_tName.isEmpty()){
             teacherNameLayout.setError("This field is required");
             return false;

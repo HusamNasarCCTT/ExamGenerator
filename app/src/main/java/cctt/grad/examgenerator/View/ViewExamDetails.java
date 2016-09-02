@@ -191,6 +191,7 @@ public class ViewExamDetails extends AppCompatActivity {
             int numOfTheories = examDetails.getInt("No of Theories"),
                     numOfPracticals = examDetails.getInt("No of Practicals");
             if(numOfTheories > 0){
+                //معادلة النظري
                 int theoryPercentageValue = Math.round(numOfTheories * 100 / numOfQuestions);
                 theoryPercentage.setText(String.valueOf(theoryPercentageValue) + "%");
             }else{
@@ -198,6 +199,7 @@ public class ViewExamDetails extends AppCompatActivity {
             }
 
             if(numOfPracticals > 0){
+                //معادلة العملي
                 int practicalPercentageValue = Math.round(numOfPracticals * 100 / numOfQuestions);
                 practicalPercentage.setText(String.valueOf(practicalPercentageValue) + "%");
             }else{

@@ -59,7 +59,7 @@ public class UpdateUser extends AppCompatActivity {
         //Initializing Session Manager...
         sessionManager = new SessionManager(getApplicationContext());
 
-        Toast.makeText(UpdateUser.this, "After changing credentials you will be logged out++", Toast.LENGTH_SHORT).show();
+        Toast.makeText(UpdateUser.this, "After changing credentials you will be logged out", Toast.LENGTH_SHORT).show();
 
         updateUserEdit.setOnClickListener(new View.OnClickListener() {
             @Override

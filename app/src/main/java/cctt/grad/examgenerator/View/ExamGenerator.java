@@ -171,8 +171,7 @@ public class ExamGenerator extends AppCompatActivity {
                 boolean theoryIsChecked = theoryGen.isChecked();
                 boolean practicalIsChecked = practicalGen.isChecked();
 
-                boolean validationOne = theoryOrPracticalValidator(theoryIsChecked, practicalIsChecked);
-                if(validationOne){
+                if(theoryOrPracticalValidator(theoryIsChecked, practicalIsChecked)){
                     generateAndDisplay();
                 }
                 else{
@@ -316,9 +315,6 @@ public class ExamGenerator extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 
     public void selectByTimeGenerationMode(){
 

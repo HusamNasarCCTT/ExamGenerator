@@ -1,5 +1,6 @@
 package cctt.grad.examgenerator.View;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -31,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     private FloatingActionButton loginAssistor = null;
     private int currentThemeInt = 0;
     SessionManager sessionManager = null;
-
     private Teacher teacher = null;
 
     @Override
@@ -89,11 +89,25 @@ public class LoginActivity extends AppCompatActivity {
                                         .setAction("Ok", new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                return;
+                                                Snackbar.make(getCurrentFocus(), "For more information, tap on the application's logo", Snackbar.LENGTH_INDEFINITE)
+                                                        .setAction("Ok", new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+
+                                                            }
+                                                        }).show();
                                             }
                                         }).show();
                             }
                         }).show();
+            }
+        });
+
+        examGeneratorLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toAboutActivity = new Intent(LoginActivity.this, AboutActivity.class);
+                startActivity(toAboutActivity);
             }
         });
     }
@@ -131,7 +145,6 @@ public class LoginActivity extends AppCompatActivity {
         passWordLayout.setError(null);
         loginUserName.setError(null);
         loginPassWord.setError(null);
-
 
         if(userName.isEmpty()){
             userNameLayout.setError("This field is required");

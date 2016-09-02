@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cctt.grad.examgenerator.Model.Question;
 import cctt.grad.examgenerator.Model.Teacher;
 import cctt.grad.examgenerator.Presenter.ExamDBHandler;
 import cctt.grad.examgenerator.Model.Class;
@@ -91,6 +92,7 @@ public class CourseAdder extends AppCompatActivity {
     }
 
     public boolean inputValidator(String courseName, String courseYear){
+
         this.courseName.setError(null);
         this.courseYear.setError(null);
 
@@ -105,7 +107,7 @@ public class CourseAdder extends AppCompatActivity {
         }
 
         if(! yearInputValidator(courseYear)){
-            this.courseYear.setError("Year must be in 21st century");
+            this.courseYear.setError("Please enter a recent date");
             return false;
         }
 
@@ -115,12 +117,17 @@ public class CourseAdder extends AppCompatActivity {
 
     public boolean yearInputValidator(String courseYear){
 
-        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
-        // String currentYear = simpleDateFormat.format(new Date());
-
-        if(courseYear.startsWith("20") && courseYear.length() == 4)
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        String currentYear = simpleDateFormat.format(new Date());
+        int currentYearInt = Integer.valueOf(currentYear);
+        int courseYearInt = Integer.valueOf(courseYear);
+        if(courseYearInt >= currentYearInt)
             return true;
         return false;
+
+        /*if(courseYear.startsWith("20") && courseYear.length() == 4)
+            return true;
+        return false;*/
     }
 
     @Override
@@ -154,4 +161,5 @@ public class CourseAdder extends AppCompatActivity {
 
         return toast;
     }
+
 }

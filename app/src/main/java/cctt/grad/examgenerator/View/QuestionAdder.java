@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -32,8 +33,8 @@ public class QuestionAdder extends AppCompatActivity {
     private EditText questionText, choice1, choice2, choice3, choice4 = null;
     private RadioButton mcqRBtn, pracRBtn = null;
     private RadioGroup mcqOrEssay, practicalOrTheory = null;
-    private RelativeLayout courseAdderLayout = null;
-    private RelativeLayout.LayoutParams courseAdderParams, difficultyTextParams = null;
+    private LinearLayout courseAdderLayout = null;
+    private LinearLayout.LayoutParams courseAdderParams, difficultyTextParams = null;
     private Spinner difficulty = null;
     private Button addQuestion = null;
     private ExamDBHandler examDBHandler = null;
@@ -83,8 +84,8 @@ public class QuestionAdder extends AppCompatActivity {
         choice4 = (EditText) findViewById(R.id.choice4);
 
         //Layout and Params initialization...
-        courseAdderLayout = (RelativeLayout) findViewById(R.id.courseAdderLayout);
-        difficultyTextParams = (RelativeLayout.LayoutParams) difficultyText.getLayoutParams();
+        courseAdderLayout = (LinearLayout) findViewById(R.id.courseAdderLayout);
+        difficultyTextParams = (LinearLayout.LayoutParams) difficultyText.getLayoutParams();
 
 
         //Spinner Adapter Initialization
@@ -102,15 +103,15 @@ public class QuestionAdder extends AppCompatActivity {
                     choice2.setVisibility(View.VISIBLE);
                     choice3.setVisibility(View.VISIBLE);
                     choice4.setVisibility(View.VISIBLE);
-                    difficultyTextParams.addRule(RelativeLayout.BELOW, choice4.getId());
+                    //difficultyTextParams.addRule(RelativeLayout.BELOW, choice4.getId());
                     courseAdderLayout.requestLayout();
                 }else{
-                    choice1.setVisibility(View.INVISIBLE);
-                    choice2.setVisibility(View.INVISIBLE);
-                    choice3.setVisibility(View.INVISIBLE);
-                    choice4.setVisibility(View.INVISIBLE);
-                    difficultyTextParams.removeRule(RelativeLayout.BELOW);
-                    difficultyTextParams.addRule(RelativeLayout.BELOW, mcqOrEssay.getId());
+                    choice1.setVisibility(View.GONE);
+                    choice2.setVisibility(View.GONE);
+                    choice3.setVisibility(View.GONE);
+                    choice4.setVisibility(View.GONE);
+                    //difficultyTextParams.removeRule(RelativeLayout.BELOW);
+                    //difficultyTextParams.addRule(RelativeLayout.BELOW, mcqOrEssay.getId());
                     courseAdderLayout.requestLayout();
                 }
             }
@@ -133,7 +134,6 @@ public class QuestionAdder extends AppCompatActivity {
                             add();
                         }catch (Exception e){
                             errorAddingQuestionToast().show();
-                            e.printStackTrace();
                         }
                 }else try{
                     add();
@@ -250,5 +250,56 @@ public class QuestionAdder extends AppCompatActivity {
 
         return toast;
 
+    }
+
+    public void stubMethod(){
+
+        for(int i=1; i<=10; i++){
+
+            for(int j=1; j<=50; j++){
+
+                Question question = new Question();
+                question.set_text("Question " + j + " Difficulty " + i);
+                question.set_difficulty(i);
+                question.set_pracOrTheory(0);
+                question.set_mcqOrRegular(0);
+                question.set_course(courseId);
+                examDBHandler.addQuestion(question);
+            }
+
+            for(int j=1; j<=50; j++){
+
+                Question question = new Question();
+                question.set_text("Question " + j + " Difficulty " + i);
+                question.set_difficulty(i);
+                question.set_pracOrTheory(0);
+                question.set_mcqOrRegular(1);
+                question.set_course(courseId);
+                examDBHandler.addQuestion(question);
+            }
+
+            for(int j=1; j<=50; j++){
+
+                Question question = new Question();
+                question.set_text("Question " + j + " Difficulty " + i);
+                question.set_difficulty(i);
+                question.set_pracOrTheory(1);
+                question.set_mcqOrRegular(0);
+                question.set_course(courseId);
+                examDBHandler.addQuestion(question);
+            }
+
+            for(int j=1; j<=50; j++){
+
+                Question question = new Question();
+                question.set_text("Question " + j + " Difficulty " + i);
+                question.set_difficulty(i);
+                question.set_pracOrTheory(1);
+                question.set_mcqOrRegular(1);
+                question.set_course(courseId);
+                examDBHandler.addQuestion(question);
+            }
+
+        }
     }
 }

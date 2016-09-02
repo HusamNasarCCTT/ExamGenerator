@@ -38,6 +38,11 @@
     <string name="title_activity_view_course_details">ViewCourseDetails</string>
 
     <string name="title_activity_view_exam_paper">ViewExamPaper</string>
+    <string name="about_exam_generator">The Exam Generator is a tool for creating highly dynamic exams.
+    The Exam Generator provides the means of creating easily categorized questions, these questions can then be used to automatically generate exams.
+    Exams can be printed in a format that is clean and easy to understand.
+    Exam Generator promises to be a fast, simple, and effective tool that many teachers can use to create and maintain their exams.
+    </string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

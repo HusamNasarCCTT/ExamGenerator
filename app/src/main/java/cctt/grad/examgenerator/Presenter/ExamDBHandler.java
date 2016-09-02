@@ -204,7 +204,6 @@ public class ExamDBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-
         //Nothing to implement yet...
     }
 
@@ -1204,5 +1203,7 @@ public class ExamDBHandler extends SQLiteOpenHelper {
         course.set_courseTeacher(cursor.getInt(cursor.getColumnIndex(COLUMN_COURSE_TEACHER)));
         return course;
     }
+
+
 
 }

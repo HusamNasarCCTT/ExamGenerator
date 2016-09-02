@@ -5,8 +5,10 @@
     <!-- >In order to write PDF File to SD Card< -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-->In order to have permission to access the accelerometer <-->
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <!-- >In order to have permission to access the accelerometer < -->
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -72,7 +74,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.CourseManagement" />
         </activity>
-        <activity android:name=".View.ExamManagement"></activity>
+        <activity android:name=".View.ExamManagement" />
+        <activity android:name=".View.AboutActivity"></activity>
     </application>
 
 </manifest>

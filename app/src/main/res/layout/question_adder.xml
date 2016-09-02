@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/courseAdderLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -22,6 +23,11 @@
             android:gravity="center_horizontal"
             android:layout_alignParentTop="true"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Question Type"
+            android:textAppearance="?android:textAppearanceLarge"/>
         <RadioGroup
             android:id="@+id/mcq_or_essay"
             android:layout_width="wrap_content"
@@ -39,6 +45,11 @@
                 android:layout_height="wrap_content"
                 android:text="Essay"/>
         </RadioGroup>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Question Material"
+            android:textAppearance="?android:textAppearanceLarge"/>
         <RadioGroup
             android:id="@+id/practical_or_theory"
             android:layout_width="wrap_content"
@@ -105,5 +116,5 @@
             android:background="?android:attr/selectableItemBackground"
             android:layout_centerHorizontal="true"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>
